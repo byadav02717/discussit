@@ -1,0 +1,1 @@
+var authValidations = require('../validations/auth');

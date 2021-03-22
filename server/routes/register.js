@@ -1,55 +1,79 @@
 var express = require('express');
 var app = express();
+const bcrypt = require('bcrypt');
+const saltRounds = 10
 
-var databse = require('../config/database');
+var database = require('../config/database');
 
 
 
-app.get('/register', (req,res)=>{
-    let sql = 'SELECT * FROM user1';
-
-    databse.query(sql, (err,result)=>{
+app.post('/register', (req,res)=>{
+    const Email=req.body.Email;
+    const Password=req.body.Password;
+    //console.log(req.body.Email);
+    let sql = `INSERT INTO users (Email, Password) VALUES (?,?)`;
+    bcrypt.hash(Password,saltRounds, (err, hash)=>{
         if(err){
-            res.status(400).json({
-                message: err
-            });
-            return;
+            console.log(err);
         }
+        
+        database.query(
+            sql,[Email,hash],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log(result)
+    
+                }
+               
+            }
+    
+        );
 
-        if(result.length) res.json(result);
-        else res.json({});
-    })
+    }) 
 });
 
 
-// app.get('tweets/user/:id',(req,res)=>{
-//     let sql = 'SELECT * FROM TWEETS WHERE user_id = ${req.params.id}';
-
-//     databse.query(sql, (err,result)=>{
-//         if(err){
-//             res.status(400).json({
-//                 message: err
-//             });
-//             return;
-//         }
-
-//         if(result.length) res.json(result);
-//         else res.json({});
-//     })
-// });
-
-// app.post('/tweets',(req,res)=>{
-//     let sql = 'INSERT INTO TWEETS(user_id, content, date_time) VALUES('${req.body.user_id}','${req.body.content}','${moment().utc().format("YY-MM-DD")}')';
-//     });
-//     databse.query(sql, (err,result)=>{
-//         if(err){
-//             res.status(400).json({
-//                 message: err
-//             });
-//             return;
-//         }
-
+app.post('/login',async(req,res)=>{
+    const Email=req.body.Email;
+    const Password=req.body.Password;
+     //console.log(req.body.Email);
+     let sql = `SELECT * FROM users WHERE Email = ?`;
+     
+ 
+     database.query(
+        sql,Email,
     
-//     });
+        (err,result)=>{
+            if(err){
+                res.send({err:err});
+            }
+            if(result.length >0){
+            bcrypt.compare(Password, result[0].Password,(error, response)=>{
+                if(response){
+                    res.send(result)
+                    console.log("username and password match")
+
+                }
+                else{
+                    res.send({message: "Wrong username and password combination"});
+                    console.log("Wrong username and password combination");
+                }
+            })
+            }
+            else{
+                res.send({message:"User doesn't exist"});                
+
+            }
+        
+        }
+ 
+     );
+ });
+
+
 
 module.exports = app;
