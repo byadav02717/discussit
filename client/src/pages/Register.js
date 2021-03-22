@@ -2,11 +2,14 @@ import React from 'react'
 import {useState} from 'react';
 import '../Form.css';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 function Register() {
 
     const [emailReg, setemailReg] = useState('');
     const [passwordReg, setpasswordReg] = useState('');
+    //const [isregistered, setregister] = useState(false);
 
+    
     const handleSubmit = event => {
       event.preventDefault();
       //alert('You have submitted the form.')
@@ -19,6 +22,11 @@ function Register() {
           }
         }).then((response) => {
           console.log(response);
+          if(response.data){
+            return(<Redirect to="/registersucess" />);
+
+          }
+         
         }, (error) => {
           console.log(error);
         });
@@ -71,6 +79,8 @@ function Register() {
      
           <button className='button' type="submit">Register</button>
         </form>
+
+
        </ div>
       
     

@@ -1,12 +1,18 @@
 var express = require('express');
-var app = express();
+
 var cors = require('cors');
 var database = require('./config/database');
 const { route } = require('./routes/register');
+
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+var app = express();
 var port = process.env. PORT || 3005;
-var p =3000
-//Connect to our databse
+
+
+
+//Check Connection to our databse
 database.connect(function(error){
     if(!!error){
         console.log('Error');
@@ -16,7 +22,7 @@ database.connect(function(error){
         console.log('Connected')
     }
 });
-
+app.use(express.json());
 const corsOptions ={
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
@@ -24,13 +30,25 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
+app.use(cookieParser());
+app.use(session({
+    key: "Email",
+    secret: "discussit",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60*60*24,
+    },
+
+}))
+
 
 
 // This is to allow our api  for cross-origin resource sharing
 //app.use(cors());
 
 // THi is to allow our api for parsing json
-app.use(express.json());
+
 
 app.use(express.urlencoded({
     extended:true

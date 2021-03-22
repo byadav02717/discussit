@@ -11,6 +11,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Registersucess from './pages/Registersucess';
 
 function App() {
   return ( <Router>
@@ -43,6 +44,7 @@ function App() {
     <Route path="/contact" component={Contact}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
+    <Route path="/registersucess" component = {Registersucess}/>
 </Switch>
   
 </div>

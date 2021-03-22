@@ -23,9 +23,11 @@ app.post('/register', (req,res)=>{
             (err,result)=>{
                 if(err){
                     console.log(err);
+                    res.send(false);
                 }
                 else{
                     console.log(result)
+                    res.send(true);
     
                 }
                
@@ -54,6 +56,8 @@ app.post('/login',async(req,res)=>{
             if(result.length >0){
             bcrypt.compare(Password, result[0].Password,(error, response)=>{
                 if(response){
+                    
+                    
                     res.send(result)
                     console.log("username and password match")
 
