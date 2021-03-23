@@ -56,19 +56,20 @@ app.post('/login',async(req,res)=>{
             if(result.length >0){
             bcrypt.compare(Password, result[0].Password,(error, response)=>{
                 if(response){
-                    
-                    
-                    res.send(result)
+                    console.log(response)
+                    res.send(result);
                     console.log("username and password match")
 
                 }
                 else{
+                    //res.send(false);
                     res.send({message: "Wrong username and password combination"});
                     console.log("Wrong username and password combination");
                 }
             })
             }
             else{
+                //res.send(false);
                 res.send({message:"User doesn't exist"});                
 
             }

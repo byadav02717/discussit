@@ -2,9 +2,10 @@ import React from 'react'
 import {useState} from 'react';
 import '../Form.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 function Register() {
-
+  
+  let history = useHistory();
     const [emailReg, setemailReg] = useState('');
     const [passwordReg, setpasswordReg] = useState('');
     //const [isregistered, setregister] = useState(false);
@@ -23,7 +24,8 @@ function Register() {
         }).then((response) => {
           console.log(response);
           if(response.data){
-            return(<Redirect to="/registersucess" />);
+            console.log(response.data)
+            history.push('/registersucess');
 
           }
          

@@ -12,6 +12,7 @@ import {
     Link
   } from "react-router-dom";
 import Registersucess from './pages/Registersucess';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return ( <Router>
@@ -45,6 +46,7 @@ function App() {
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
     <Route path="/registersucess" component = {Registersucess}/>
+    <Route path="/dashboard" component = {Dashboard} />
 </Switch>
   
 </div>

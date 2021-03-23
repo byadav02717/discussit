@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import { useHistory } from "react-router-dom";
 import '../Form.css'
 
 import axios from 'axios';
@@ -8,8 +8,10 @@ import axios from 'axios';
 
 function Login(){
 
+  let history = useHistory();
   const [emailReg, setemailReg] = useState('');
   const [passwordReg, setpasswordReg] = useState('');
+  const [LoginStatus, setLoginStatus] = useState('');
 
 
   axios.defaults.withCredentials = true;
@@ -25,15 +27,20 @@ function Login(){
             Password: passwordReg
         }
       }).then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
+        if (response.data.message) {
+          setLoginStatus(response.data.message);
+        } else {
+          history.push('/dashboard');
+          //setLoginStatus(response.data[0].Email);
+        }
+       
       });
  
   }
 
    
     return (
+      <div>
       <form className='form' onSubmit={handleSubmit}>
       <div className='form-inputs'>
         <h1>Sign in</h1>
@@ -55,7 +62,7 @@ function Login(){
        Password: 
      </label>
      <input className='form-input'
-       type="text" 
+       type="password" 
        //name="Password"
        placeholder="Password"
        onChange={(e)=>{
@@ -71,6 +78,8 @@ function Login(){
      <button type="submit">Log in</button>
    
    </form>
+   <h1>{LoginStatus}</h1>
+   </div>
     );
 }
  
