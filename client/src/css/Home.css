@@ -1,40 +1,33 @@
-/* Container needed to position the button. Adjust the width as needed */
-.container {
-    position: relative;
-    width: 50%;
-  }
-  
-  /* Make the image responsive */
-  .img {
-    object-fit: cover;
-    
-  height: 50px;
-  width: 100px;
-  }
-  
-  /* Style the button and place it in the middle of the container/image */
- .btn {
+body {
+  background-image: url('student-image.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+/* Style the button and place it in the middle of the container/image */
+.btn {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: #555;
     color: white;
     font-size: 30px;
-    padding: 24px 24px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     text-align: center;
     vertical-align: middle;
     margin: auto;
-  }
+}
   
-  .container .btn:hover {
-    background-color: black;
-  }
+.container .btn:hover {
+  background-color: black;
+}
 
-  .brand-logo {
-    margin-left: 15px;
-  }
+.brand-logo {
+  margin-left: 15px;
+}
