@@ -9,7 +9,7 @@ export default function Home() {
             <img src="/student-image.jpg" alt="" />
 
          <div className = "container">
-      <Link to="/login">
+      <Link to="/register">
       <button className = "btn">Get Started</button>
           </Link>
        </div>
