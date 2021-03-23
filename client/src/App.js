@@ -4,6 +4,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Album from './pages/Album'
 import "./css/Home.css"
 
 import {
@@ -47,7 +48,7 @@ function App() {
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
     <Route path="/registersucess" component = {Registersucess}/>
-    <Route path="/dashboard" component = {Dashboard} />
+    <Route path="/dashboard" component = {Album} />
 </Switch>
   
 </div>
