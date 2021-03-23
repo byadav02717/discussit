@@ -36,14 +36,16 @@ function Register() {
     }
 
     return (
+      <div id="register-form">
         <div className='form-content-centre'>
         <form className='form' onSubmit={handleSubmit}>
           <h1 className='form-title'>
-            Get started with us today! Create your<br /> 
-            account by fillig out the <br />
-            information below.
+            Registration
           </h1>
-          <br /> <br /> <br />
+          <p>Get started with us today! 
+            Create your account by fillig out the
+            information below.</p>
+          <br />
           
           
           <div className='form-input'>
@@ -84,6 +86,7 @@ function Register() {
 
 
        </ div>
+       </div>
       
     
     );
