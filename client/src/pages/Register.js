@@ -43,7 +43,7 @@ function Register() {
               Registration
             </h1>
             <p>Get started with us today! 
-              Create your account by fillig out the
+             <br/> Create your account by filling out the
               information below.</p>
             <br />
           

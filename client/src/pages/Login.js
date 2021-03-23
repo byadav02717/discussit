@@ -84,7 +84,7 @@ function Login(){
 
           <button className='button' type="submit">Login</button>
         </form>
-
+      <p>{LoginStatus}</p>
        </ div> 
     );
 }
