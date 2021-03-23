@@ -4,6 +4,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import "./css/Home.css"
 
 import {
     BrowserRouter as Router,
@@ -19,7 +20,7 @@ function App() {
     <div className="navbar">
   <nav>
   <div className="nav-wrapper">
-    <li className="brand-logo"><Link to="/">Disscussit</Link></li>
+    <li className="brand-logo"><Link to="/">DiscussIt</Link></li>
     <ul id="nav-mobile" className="right hide-on-med-and-down">
        
       <li>

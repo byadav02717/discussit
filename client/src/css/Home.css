@@ -5,19 +5,15 @@
   }
   
   /* Make the image responsive */
-  .container img {
-    width: 100%;
-    height: auto;
+  .img {
+    object-fit: cover;
     
-  height:100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 50px;
+  width: 100px;
   }
   
   /* Style the button and place it in the middle of the container/image */
-  .container .btn {
+ .btn {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -26,12 +22,19 @@
     background-color: #555;
     color: white;
     font-size: 30px;
-    padding: 12px 24px;
+    padding: 24px 24px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
   }
   
   .container .btn:hover {
     background-color: black;
+  }
+
+  .brand-logo {
+    margin-left: 15px;
   }
