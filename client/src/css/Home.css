@@ -1,8 +1,5 @@
-.home {
-  background-image: url('student-image.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+#home img {
+   width: 100%;
 }
 
 /* Style the button and place it in the middle of the container/image */

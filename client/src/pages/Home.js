@@ -5,9 +5,10 @@ import '../css/Home.css';
 
 export default function Home() {
     return (
-        <div className="home">
+        <div id="home">
+            <img src="/student-image.jpg" alt="" />
+
          <div className = "container">
-     
       <Link to="/login">
       <button className = "btn">Get Started</button>
           </Link>
