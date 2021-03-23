@@ -3,6 +3,7 @@ import {useState} from 'react';
 import '../Form.css';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+
 function Register() {
   
   let history = useHistory();
@@ -36,16 +37,15 @@ function Register() {
     }
 
     return (
-      <div id="register-form">
         <div className='form-content-centre'>
-        <form className='form' onSubmit={handleSubmit}>
-          <h1 className='form-title'>
-            Registration
-          </h1>
-          <p>Get started with us today! 
-            Create your account by fillig out the
-            information below.</p>
-          <br />
+          <form className='form' onSubmit={handleSubmit}>
+            <h1 className='form-title'>
+              Registration
+            </h1>
+            <p>Get started with us today! 
+              Create your account by fillig out the
+              information below.</p>
+            <br />
           
           
           <div className='form-input'>
@@ -81,14 +81,13 @@ function Register() {
               />
             </div>
      
+             Already have an account? Log in <a href='/login'>here</a>
+             <br />
+             
           <button className='button' type="submit">Register</button>
         </form>
 
-
-       </ div>
-       </div>
-      
-    
+       </ div>    
     );
 }
 export default Register;

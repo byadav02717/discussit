@@ -37,46 +37,55 @@ function Login(){
 
    
     return (
-      <div id="login-form">
-      <form className='form' onSubmit={handleSubmit}>
-      <div className='form-inputs'>
-        <h1>Sign in</h1>
-     <label>
-       Email: 
-     </label>
-       <input className='form-input'
-       type="text"
-       //name = "Email"
-       placeholder="Email Address"
-       onChange={(e)=>{
-          setemailReg(e.target.value);
-       }}
-       
-       />
-       </div>
-     <div className='form-inputs'>
-     <label>
-       Password: 
-     </label>
-     <input className='form-input'
-       type="password" 
-       //name="Password"
-       placeholder="Password"
-       onChange={(e)=>{
-         setpasswordReg(e.target.value);
-      }}
-       
-       />
-       </div>
-     
-     
-     Don't have an account? Register <a href='/register'>here</a>.
-     <br></br>
-     <button type="submit">Log in</button>
-   
-   </form>
-   <h1>{LoginStatus}</h1>
-   </div>
+      <div className='form-content-centre'>
+          <form className='form' onSubmit={handleSubmit}>
+            <h1 className='form-title'>
+              Login
+            </h1>
+            <p>Enter your credentials below to log in.</p>
+            <br />
+          
+          
+          <div className='form-input'>
+            <label htmlFor='Email' className='form-label'>
+              Email: 
+            </label>
+              <input 
+              id='Email'
+              className='form-input'
+              type="text" 
+              placeholder="Enter your email address"
+              onChange={(e)=>{
+                setemailReg(e.target.value);
+             }}
+              
+              />
+            
+          </div>
+           
+            <div className='form-input'>
+            <label htmlFor='pass' className='form-label'>
+              Password: 
+            </label>
+              <input 
+              id='pass'
+              className='form-input'
+              type="password" 
+              placeholder="Enter your password"
+              onChange={(e)=>{
+                setpasswordReg(e.target.value);
+             }}
+              
+              />
+            </div>
+             
+            Don't have an account? Sign up <a href='/register'>here</a>
+            <br />
+
+          <button className='button' type="submit">Login</button>
+        </form>
+
+       </ div> 
     );
 }
  

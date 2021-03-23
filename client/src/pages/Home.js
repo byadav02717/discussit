@@ -5,7 +5,7 @@ import '../css/Home.css';
 
 export default function Home() {
     return (
-        <div id="home">
+        <div className="home">
          <div className = "container">
      
       <Link to="/login">
