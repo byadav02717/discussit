@@ -55,7 +55,8 @@ app.post('/login',async(req,res)=>{
             bcrypt.compare(Password, result[0].Password,(error, response)=>{
                 if(response){
                     console.log(response)
-                    res.send(result);
+                    console.log({id:result[0].id, Email:result[0].Email})
+                    res.send({id:result[0].id, Email:result[0].Email});
                     console.log("username and password match")
 
                 }
@@ -77,6 +78,33 @@ app.post('/login',async(req,res)=>{
      );
  });
 
+ app.post('/creategroup', (req,res)=>{
+    const GName=req.body.GName;
+    const Gdesc=req.body.Gdesc;
+    const id = req.body.id;
+    //console.log(req.body.Email);
+    let sql = `INSERT INTO groups1 (GName, Gdesc, id) VALUES (?,?,?)`;
+   
+        database.query(
+            sql,[GName,Gdesc,id],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send({message:"Group Not Created"});
+                }
+                else{
+                    console.log(result)
+                    res.send({message:"Group Created"});
+    
+                }
+               
+            }
+    
+        );
+
+    
+});
 
 
 module.exports = app;

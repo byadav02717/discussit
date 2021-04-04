@@ -7,6 +7,7 @@ const { route } = require('./routes/register');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 var app = express();
 var port = process.env. PORT || 3005;
 
@@ -31,16 +32,23 @@ const corsOptions ={
 app.use(cors(corsOptions));
 
 app.use(cookieParser());
-app.use(session({
-    key: "Email",
-    secret: "discussit",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60*60*24,
-    },
 
-}))
+// const sessionStore = new MySQLStore({
+//     expiration:(60*60*24),
+//     endConnectionOnClose: false
+// }, database);
+// app.use(session({
+//     key: "ASGF541G5DAS4G51A56SD1DGE654RG1A56S",
+//     secret: "AKFDJGNOASG4ASD4F5G45AS4DD56G45AS4",
+//     store: sessionStore,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         maxAge: (60*60*24),
+//         httpOnly: false
+//     }
+
+// }))
 
 
 

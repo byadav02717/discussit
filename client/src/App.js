@@ -17,7 +17,16 @@ import Registersucess from './pages/Registersucess';
 import Dashboard from './pages/Dashboard';
 
 function App() {
-  return ( <Router>
+
+  let obj = {id:'-1', Email:''}
+  localStorage.setItem('user', JSON.stringify(obj));
+  
+
+  
+
+
+  return ( 
+  <Router>
     <div className="navbar">
   <nav>
   <div className="nav-wrapper">
@@ -34,6 +43,9 @@ function App() {
         <Link to="/contact">Contact</Link>
       </li>
       <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li> 
+      <li>
         <Link to="/login">Login</Link>
       </li>       
        
@@ -45,10 +57,10 @@ function App() {
     <Route path="/" component={Home} exact/>
     <Route path="/about" component={About}/>
     <Route path="/contact" component={Contact}/>
-    <Route path="/login" component={Login}/>
+    <Route path="/login" component={Login }/>
     <Route path="/register" component={Register}/>
     <Route path="/registersucess" component = {Registersucess}/>
-    <Route path="/dashboard" component = {Album} />
+    <Route path="/dashboard" component = {Dashboard} />
 </Switch>
   
 </div>

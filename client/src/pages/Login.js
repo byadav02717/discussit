@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+
+import PropTypes from 'prop-types';
 import "../Form.css"
 
+
 function Login(){
+
+  
 
   let history = useHistory();
   const [emailReg, setemailReg] = useState('');
@@ -27,6 +32,8 @@ function Login(){
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
+          //setToken(response.data.id);
+          localStorage.setItem('user',JSON.stringify(response.data));
           history.push('/dashboard');
           //setLoginStatus(response.data[0].Email);
         }
@@ -88,5 +95,7 @@ function Login(){
        </ div> 
     );
 }
+
+
  
 export default Login;
