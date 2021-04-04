@@ -5,9 +5,6 @@ import "../Form.css"
 
 
 function Login(){
-
-  
-
   let history = useHistory();
   const [emailReg, setemailReg] = useState('');
   const [passwordReg, setpasswordReg] = useState('');
