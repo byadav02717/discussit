@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-
-import PropTypes from 'prop-types';
 import "../Form.css"
 
 
