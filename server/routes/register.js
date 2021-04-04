@@ -106,5 +106,64 @@ app.post('/login',async(req,res)=>{
     
 });
 
+app.post('/question', (req,res)=>{
+    const id = req.body.id;
+    const GId = req.body.GId;
+    const Question = req.body.Question;
+    
+    //console.log(req.body.Email);
+    let sql = `INSERT INTO questions(id, GId, Question) VALUES (?,?,?)`;
+   
+        database.query(
+            sql,[id, GId, Question],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send({message:"Question Not posted"});
+                }
+                else{
+                    console.log(result)
+                    res.send({message:"Question Posted"});
+    
+                }
+               
+            }
+    
+        );
+
+    
+});
+
+app.post('/answer', (req,res)=>{
+    const QId = req.body.QId;
+    const id = req.body.id;
+    const Answer = req.body.Answer;
+    
+    let sql = `INSERT INTO answers(QId, id, Answer) VALUES (?,?,?)`;
+   
+        database.query(
+            sql,[QId, id, Answer],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send({message:"Answer Not posted"});
+                }
+                else{
+                    console.log(result)
+                    res.send({message:"Answer Posted"});
+    
+                }
+               
+            }
+    
+        );
+
+    
+});
+
+
+
 
 module.exports = app;
