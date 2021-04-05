@@ -180,29 +180,51 @@ app.post('/answer', (req,res)=>{
     
 });
 
-// app.get('/groups',(req,res)=>{
-//     const id = 1;
-//     let sql = `SELECT * FROM groupmembers WHERE id = 1`;
-//     database.query(
-//         sql,[],
+app.get('/groups',(req,res)=>{
+    const id = req.body.id;
+    let sql = `SELECT GId FROM groupmembers WHERE id = 1`;
+    database.query(
+        sql,[id],
        
-//         (err,result)=>{
-//             if(err){
-//                 console.log(err);
-//                 res.send({message:"Groups Not found"});
-//             }
-//             else{
-//                 console.log(result)
-//                 console.log({message:"groups found"});
-//                 res.send(result)
+        (err,result)=>{
+            if(err){
+                console.log(err);
+                //res.send({message:"Groups Not found"});
+            }
+            else{
+                console.log(result)
+                console.log({message:"groups found"});
+                //res.send(result);
+                var list= [];
+                for (i = 0; i < result.length; i++) {
+                    list.push(result[i].GId);
+                }
+                //res.send(list);
+                    
+                let sql2 = `SELECT * FROM groups1 WHERE GId IN (${list})`;
+                database.query(
+                    sql2,list,
+                   
+                    (err2,result2)=>{
+                        if(err2){
+                            console.log(err2);
+                            //res.send({message:"Groups Not found"});
+                        }
+                        else{
+                            res.send(result2);
+                            console.log(result2)
+                        }
+                    }
+                );
 
-//             }
+
+            }
            
-//         }
+        }
 
-//     );
+    );
 
-// });
+});
 
 
 

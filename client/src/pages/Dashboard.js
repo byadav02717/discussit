@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/dashboard.css'
+import axios from 'axios';
 import CreateGroup from '../components/CreateGroup'
 
 export default function Dashboard () {
@@ -17,6 +18,28 @@ export default function Dashboard () {
         )
     }
 
+    var userId = JSON.parse(localStorage.getItem('user')).id;
+
+    
+
+    axios({
+
+        method: 'get',
+
+        url: 'http://localhost:3005/groups',
+
+        data: {
+
+            id: userId
+
+        }
+
+      }).then((response) => {
+
+        console.log(response);
+
+    });
+
     
     return (
         <div className="dashboard" >
@@ -28,5 +51,6 @@ export default function Dashboard () {
 
 
         </div>
+
     )
 }
