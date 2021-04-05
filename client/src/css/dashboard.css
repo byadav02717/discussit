@@ -2,3 +2,9 @@
     flex: auto;
     flex-direction: column;
 }
+
+.groups {
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+}
