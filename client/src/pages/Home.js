@@ -6,7 +6,7 @@ import '../css/Home.css';
 export default function Home() {
     return (
         <div id="home">
-            <img src="/student-image.jpg" alt="" />
+            <img src="/student-image2.jpg" alt="" />
 
          <div className = "container">
       <Link to="/register">
