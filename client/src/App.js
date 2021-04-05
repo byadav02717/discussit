@@ -23,7 +23,7 @@ function App() {
     <div className="navbar">
   <nav>
   <div className="nav-wrapper">
-    <li className="brand-logo">< i className= "fas fa-pen-square"></i><Link to="/">DiscussIt</Link></li>
+    <li className="brand-logo">< i className= "far fa-comments"></i><Link to="/">DiscussIt</Link></li>
     <ul id="nav-mobile" className="right hide-on-med-and-down">
        
       <li>
