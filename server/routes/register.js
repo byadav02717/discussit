@@ -37,6 +37,7 @@ app.post('/register', (req,res)=>{
 });
 
 
+
 app.post('/login',async(req,res)=>{
     const Email=req.body.Email;
     const Password=req.body.Password;
@@ -82,7 +83,6 @@ app.post('/login',async(req,res)=>{
     const GName=req.body.GName;
     const Gdesc=req.body.Gdesc;
     const id = req.body.id;
-    //console.log(req.body.Email);
     let sql = `INSERT INTO groups1 (GName, Gdesc, id) VALUES (?,?,?)`;
    
         database.query(
@@ -94,9 +94,26 @@ app.post('/login',async(req,res)=>{
                     res.send({message:"Group Not Created"});
                 }
                 else{
-                    console.log(result)
-                    res.send({message:"Group Created"});
+                       console.log(result)
+                       //res.send({message:"Group Created"});
+                        let sql2 = `INSERT INTO groupmembers (GId, id) VALUES (?,?)`;
+                        //res.send({message:"Group Created"});
+                        database.query(
+                            sql2,[result.insertId,id],
+                        
+                            (err2,result2)=>{
+                                if(err2){
+                                    console.log(err2);
+                                    //res.send({message:"not inserted to groupmembers"});
+                                }
+                                else
+                                {
+                                    console.log(result2)
+                                }
+
+                            }
     
+                        );
                 }
                
             }
@@ -162,6 +179,30 @@ app.post('/answer', (req,res)=>{
 
     
 });
+
+// app.get('/groups',(req,res)=>{
+//     const id = 1;
+//     let sql = `SELECT * FROM groupmembers WHERE id = 1`;
+//     database.query(
+//         sql,[],
+       
+//         (err,result)=>{
+//             if(err){
+//                 console.log(err);
+//                 res.send({message:"Groups Not found"});
+//             }
+//             else{
+//                 console.log(result)
+//                 console.log({message:"groups found"});
+//                 res.send(result)
+
+//             }
+           
+//         }
+
+//     );
+
+// });
 
 
 
