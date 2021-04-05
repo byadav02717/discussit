@@ -180,6 +180,21 @@ app.post('/answer', (req,res)=>{
     
 });
 
+app.get('/getquestions',(req,res)=>{
+    const GId = req.body.GId;
+    let sql = `SELECT * FROM questions WHERE GId = ?`;
+    database.query(sql, [GId], 
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        });
+})
+
 app.get('/groups',(req,res)=>{
     const id = req.body.id;
     let sql = `SELECT GId FROM groupmembers WHERE id = 1`;
