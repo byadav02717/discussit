@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../css/dashboard.css'
 import axios from 'axios';
 import CreateGroup from '../components/CreateGroup'
 import Login from './Login'
 import { makeStyles } from '@material-ui/core/styles'
+
 import {
     Grid,
     Card,
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Dashboard () {
+    const [groupL, setgroupL] = useState([]);
     const classes = useStyles()
     let history = useHistory();
 
@@ -46,7 +48,7 @@ export default function Dashboard () {
     var userId = JSON.parse(localStorage.getItem('user')).id;
     var grouplist = [];
 
-    setTimeout(function(){
+    
         axios({
             method: 'get',
             url: 'http://localhost:3005/groups',
@@ -59,8 +61,9 @@ export default function Dashboard () {
             {
                 grouplist.push(response.data[i]);
             }
+            setgroupL(grouplist);
         })
-    }, 1000);
+   
 
     var testgroups = []
     testgroups.push({
@@ -86,7 +89,7 @@ export default function Dashboard () {
 
     return (
         <div className="dashboard" >
-            {console.log(grouplist)}
+            {console.log(groupL)}
             <p>Create a new Group: </p>
             
             <CreateGroup />
@@ -99,8 +102,8 @@ export default function Dashboard () {
                 justify="flex-start"
                 alignItems="flex-start"
             >   
-                {testgroups.map(elem => (
-                    <Grid item xs={12} sm={6} md={3} key={testgroups.indexOf(elem)}>
+                {groupL.map(elem => (
+                    <Grid item xs={12} sm={6} md={3} key={groupL.indexOf(elem)}>
                         <Card>
                             <CardHeader
                                 title={`${elem.GName}`}
