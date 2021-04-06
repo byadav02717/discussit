@@ -4,7 +4,6 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Album from './pages/Album'
 import "./css/Home.css"
 import "./App.css"
 

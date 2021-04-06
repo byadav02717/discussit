@@ -1,10 +1,11 @@
-.dashboard{
+.dashboard {
     flex: auto;
     flex-direction: column;
+    margin: 20px;
 }
 
 .groups {
-    margin: 20px;
+    margin-top: 20px;
     padding: 20px;
     width: 300px;
 }
