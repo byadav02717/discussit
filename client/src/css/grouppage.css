@@ -1,0 +1,23 @@
+.group-body {
+    margin: 50px;
+}
+
+.QContainer {
+    border-style: solid;
+    border-width: 2px;
+}
+
+.AContainer {
+    border-style: solid;
+    border-width: 2px;
+}
+
+#reply-textarea {
+    padding: 5px;
+    height: 100px;
+    resize: none;
+}
+
+.li-secondary {
+    text-align: right;
+}

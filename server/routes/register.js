@@ -215,7 +215,10 @@ app.get('/groups',(req,res)=>{
                     list.push(result[i].GId);
                 }
                 //res.send(list);
-                    
+                
+                if(list.length > 0)
+                {
+
                 let sql2 = `SELECT * FROM groups1 WHERE GId IN (${list})`;
                 database.query(
                     sql2,list,
@@ -231,6 +234,8 @@ app.get('/groups',(req,res)=>{
                         }
                     }
                 );
+                
+                }
 
 
             }

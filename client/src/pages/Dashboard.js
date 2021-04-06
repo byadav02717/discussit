@@ -24,9 +24,10 @@ export default function Dashboard () {
     const classes = useStyles()
     let history = useHistory();
 
-    function openGroupPage(groupID) 
+    function openGroupPage(groupID, groupName) 
     {
         localStorage.setItem('groupID', groupID);
+        localStorage.setItem('groupName', groupName);
         history.push('/group'); 
     }
 
@@ -90,7 +91,7 @@ export default function Dashboard () {
             
             <CreateGroup />
             
-            <div class='groups hide' className={classes.root}>
+            <div id='groups' className={classes.root}>
             <Grid
                 container
                 spacing={2}
@@ -106,7 +107,7 @@ export default function Dashboard () {
                                 subheader={`${elem.Gdesc}`}
                             />
                             <CardContent>
-                                <Button onClick={() => {openGroupPage(elem.GId)}}>
+                                <Button onClick={() => {openGroupPage(elem.GId, elem.GName)}}>
                                     View Group
                                 </Button>
                             </CardContent>
