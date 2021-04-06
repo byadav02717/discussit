@@ -8,14 +8,10 @@ import {
     Grid,
     Card,
     CardContent,
-    Typography,
     CardHeader,
     Button
 } from '@material-ui/core/'
-
-function openGroupPage(groupID) {
-    console.log(groupID)
-}
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,6 +22,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard () {
     const classes = useStyles()
+    let history = useHistory();
+
+    function openGroupPage(groupID) 
+    {
+        localStorage.setItem('groupID', groupID);
+        history.push('/group'); 
+    }
 
     let local_data = localStorage.getItem('user');
     local_data = JSON.parse(local_data);
@@ -36,14 +39,6 @@ export default function Dashboard () {
                 <p>You are not logged in.  Please log in first.</p>
                 <Login></Login>
             </div>
-
-            /*
-            <div >
-                Log in <a href='/login'>here</a>
-    
-            </div>
-            */
-            
         )
     }
 
@@ -69,22 +64,22 @@ export default function Dashboard () {
     var testgroups = []
     testgroups.push({
         GId: 0,
-        GName: "TestGroup1",
-        Gdesc: "Test 1",
+        GName: "Test Group 1",
+        Gdesc: "This group is for students",
         id: "1"
     })
 
     testgroups.push({
         GId: 1,
-        GName: "TestGroup2",
-        Gdesc: "Test 2",
+        GName: "Test Group 2",
+        Gdesc: "This group is for friends",
         id: "1"
     })
 
     testgroups.push({
         GId: 2,
-        GName: "TestGroup3",
-        Gdesc: "Test 3",
+        GName: "Test Group 3",
+        Gdesc: "We don't know what this group is for",
         id: "1"
     })
 
@@ -111,7 +106,7 @@ export default function Dashboard () {
                                 subheader={`${elem.Gdesc}`}
                             />
                             <CardContent>
-                                <Button onClick={() => { openGroupPage(elem.GId) }}>
+                                <Button onClick={() => {openGroupPage(elem.GId)}}>
                                     View Group
                                 </Button>
                             </CardContent>

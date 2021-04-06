@@ -16,6 +16,7 @@ import {
   } from "react-router-dom";
 import Registersucess from './pages/Registersucess';
 import Dashboard from './pages/Dashboard';
+import GroupPage from './pages/GroupPage';
 
 function App() {
   let obj = {id:'-1', Email:''}
@@ -58,6 +59,7 @@ function App() {
     <Route path="/register" component={Register}/>
     <Route path="/registersucess" component = {Registersucess}/>
     <Route path="/dashboard" component = {Dashboard} />
+    <Route path="/group" component = {GroupPage} />
 </Switch>
   
 </div>
