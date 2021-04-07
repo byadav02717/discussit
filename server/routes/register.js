@@ -126,13 +126,14 @@ app.post('/login',async(req,res)=>{
 app.post('/question', (req,res)=>{
     const id = req.body.id;
     const GId = req.body.GId;
-    const Question = req.body.Question;
+    const topic = req.body.topic;
+    const question = req.body.question;
     
     //console.log(req.body.Email);
-    let sql = `INSERT INTO questions(id, GId, Question) VALUES (?,?,?)`;
+    let sql = `INSERT INTO questions(id, GId,topic, Question) VALUES (?,?,?,?)`;
    
         database.query(
-            sql,[id, GId, Question],
+            sql,[id, GId, topic, question],
            
             (err,result)=>{
                 if(err){
@@ -181,7 +182,9 @@ app.post('/answer', (req,res)=>{
 });
 
 app.get('/getquestions',(req,res)=>{
+    //const GId = 5;
     const GId = req.body.GId;
+    console.log(GId);
     let sql = `SELECT * FROM questions WHERE GId = ?`;
     database.query(sql, [GId], 
         (err, result)=>{

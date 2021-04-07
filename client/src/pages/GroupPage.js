@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import '../css/grouppage.css'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +11,9 @@ import {
     Button,
     TextField
 } from '@material-ui/core/'
+import CreateQuestion from '../components/CreateQuestion'
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +68,7 @@ questions.push({QId: 10, id: 1, GId: 0, Topic: "When is Exam 7?", Question: "tex
 questions.push({QId: 11, id: 1, GId: 0, Topic: "When is Exam 8?", Question: "text"});
 questions.push({QId: 12, id: 1, GId: 0, Topic: "When is Exam 9?", Question: "text"});
 
+var question = [];
 var answers = [];
 answers.push({AnswerId: 0, QId: 0, 
     id: questions[0].id, Answer: questions[0].Question});
@@ -75,8 +80,32 @@ users.push({id: 1, email: "test@gmail.com"});
 users.push({id: 2, email: "john@gmail.com"});
 
 export default function GroupPage() {
+    const [questionData, setquestionData] = useState([]);
     const classes = useStyles();
     var groupName = localStorage.getItem('groupName');
+    
+    useEffect(() => {
+        var groupID = localStorage.getItem('groupID');
+        console.log(groupID)
+        axios({
+            method: 'get',
+            url: 'http://localhost:3005/getquestions',
+            data: {
+                GId: groupID
+            }
+            }).then((response) => {
+        
+            for (var i = 0; i<response.data.length; i++)
+            {
+                question.push(response.data[i]);
+            }
+            //setquestionData(question);
+            });
+           
+       }, []);
+
+
+
     /*
     var local_data = localStorage.getItem('user');
     local_data = JSON.parse(local_data);
@@ -94,7 +123,7 @@ export default function GroupPage() {
         <div>
             <div className="group-body">
                 <h1>{groupName}</h1>
-
+                {console.log(questionData)}
                 <Grid container>
 
                 <Grid className='QContainer' item xs={2.4}>    
@@ -120,7 +149,8 @@ export default function GroupPage() {
                 </Grid>
 
                 <Button>
-                    Post New Question
+                    
+                    <CreateQuestion />
                 </Button>
             </div>
         </div>
