@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../css/dashboard.css'
 import axios from 'axios';
 import CreateGroup from '../components/CreateGroup'
@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard () {
     const [groupL, setgroupL] = useState([]);
+    const [load, setload] = useState(false);
     const classes = useStyles()
     let history = useHistory();
 
@@ -36,33 +37,40 @@ export default function Dashboard () {
     let local_data = localStorage.getItem('user');
     local_data = JSON.parse(local_data);
 
-    if(local_data.id === '-1'){
-        return(
-            <div>
-                <p>You are not logged in.  Please log in first.</p>
-                <Login></Login>
-            </div>
-        )
-    }
+    
 
     var userId = JSON.parse(localStorage.getItem('user')).id;
     var grouplist = [];
+    //const groupL = [];
 
+   useEffect(() => {
+    axios({
+        method: 'get',
+        url: 'http://localhost:3005/groups',
+        data: {
+            id: userId
+        }
+        }).then((response) => {
     
-        axios({
-            method: 'get',
-            url: 'http://localhost:3005/groups',
-            data: {
-                id: userId
-            }
-          }).then((response) => {
+        for (var i =0; i<response.data.length; i++)
+        {
+            grouplist.push(response.data[i]);
+        }
+        setgroupL(grouplist);
+        });
+       
+   }, [local_data.id]);
     
-            for (var i =0; i<response.data.length; i++)
-            {
-                grouplist.push(response.data[i]);
-            }
-            setgroupL(grouplist);
-        })
+   if(local_data.id === '-1'){
+    return(
+        <div>
+            <p>You are not logged in.  Please log in first.</p>
+            <Login></Login>
+        </div>
+    )
+}
+
+    //var groupL = grouplist;
    
 
     var testgroups = []
