@@ -71,30 +71,6 @@ export default function Dashboard () {
 }
 
     //var groupL = grouplist;
-   
-
-    var testgroups = []
-    testgroups.push({
-        GId: 0,
-        GName: "Test Group 1",
-        Gdesc: "This group is for students",
-        id: "1"
-    })
-
-    testgroups.push({
-        GId: 1,
-        GName: "Test Group 2",
-        Gdesc: "This group is for friends",
-        id: "1"
-    })
-
-    testgroups.push({
-        GId: 2,
-        GName: "Test Group 3",
-        Gdesc: "We don't know what this group is for",
-        id: "1"
-    })
-
     return (
         <div className="dashboard" >
             {console.log(groupL)}
