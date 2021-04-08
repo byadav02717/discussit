@@ -130,7 +130,7 @@ app.post('/question', (req,res)=>{
     const question = req.body.question;
     
     //console.log(req.body.Email);
-    let sql = `INSERT INTO questions(id, GId,topic, Question) VALUES (?,?,?,?)`;
+    let sql = `INSERT INTO questions(id, GId, Topic, Question) VALUES (?,?,?,?)`;
    
         database.query(
             sql,[id, GId, topic, question],
