@@ -40,12 +40,13 @@ var users = [];
 users.push({id: 1, email: "test@gmail.com"});
 users.push({id: 2, email: "john@gmail.com"});
 
-var question = [];
+
 
 export default function GroupPage() {
     const [questionData, setquestionData] = useState([]);
     var groupName = localStorage.getItem('groupName');
     const [currAnswers, setCurrAnswers] = useState([]);
+    const [loadAgain, setloadAgain] = useState(false);
 
     function renderQuestions(props) {
         const { index, style } = props;
@@ -61,7 +62,7 @@ export default function GroupPage() {
               })
               setCurrAnswers(answerList)
           }}>
-            <ListItemText primary={`${questions[index].Topic}`} />
+            <ListItemText primary={`${questionData[index].Topic}`} />
           </ListItem>
         );
     }
@@ -87,12 +88,13 @@ export default function GroupPage() {
     };
     
     useEffect(() => {
+        var question = [];
         var groupID = localStorage.getItem('groupID');
         console.log(groupID)
         axios({
             method: 'get',
             url: 'http://localhost:3005/getquestions',
-            data: {
+            params: {
                 GId: groupID
             }
             }).then((response) => {
@@ -101,25 +103,10 @@ export default function GroupPage() {
             {
                 question.push(response.data[i]);
             }
-            //setquestionData(question);
+            setquestionData(question);
             });
            
-       }, []);
-
-
-
-    /*
-    var local_data = localStorage.getItem('user');
-    local_data = JSON.parse(local_data);
-    if(local_data.id === '-1'){
-        return(
-            <div>
-                <p>You are not logged in.  Please log in first.</p>
-                <Login></Login>
-            </div>
-        )
-    }
-    */
+       }, [loadAgain]);
 
     return (
         <div>
@@ -129,7 +116,7 @@ export default function GroupPage() {
                 <Grid container>
 
                 <Grid className='QContainer' item xs={2.4}>    
-                <FixedSizeList height={540} width={300} itemSize={46} itemCount={questions.length}>
+                <FixedSizeList height={540} width={300} itemSize={46} itemCount={questionData.length}>
                     {renderQuestions}
                 </FixedSizeList>
                 </Grid>

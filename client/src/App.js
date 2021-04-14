@@ -19,8 +19,7 @@ import Dashboard from './pages/Dashboard';
 import GroupPage from './pages/GroupPage';
 
 function App() {
-  let obj = {id:'-1', Email:''}
-  localStorage.setItem('user', JSON.stringify(obj));
+  
   
 
   return ( 

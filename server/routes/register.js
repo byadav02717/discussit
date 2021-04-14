@@ -183,7 +183,7 @@ app.post('/answer', (req,res)=>{
 
 app.get('/getquestions',(req,res)=>{
     //const GId = 5;
-    const GId = req.body.GId;
+    const GId = req.query.GId;
     console.log(GId);
     let sql = `SELECT * FROM questions WHERE GId = ?`;
     database.query(sql, [GId], 
@@ -199,8 +199,9 @@ app.get('/getquestions',(req,res)=>{
 })
 
 app.get('/groups',(req,res)=>{
-    const id = req.body.id;
-    let sql = `SELECT GId FROM groupmembers WHERE id = 1`;
+    const id = req.query.id;
+    console.log(id)
+    let sql = `SELECT GId FROM groupmembers WHERE id = ?`;
     database.query(
         sql,[id],
        

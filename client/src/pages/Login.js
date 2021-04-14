@@ -2,16 +2,25 @@ import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import "../Form.css"
+import { Button } from '@material-ui/core';
 
 
 function Login(){
   let history = useHistory();
   const [emailReg, setemailReg] = useState('');
+  const [logIn, setlogIn] = useState(false);
   const [passwordReg, setpasswordReg] = useState('');
   const [LoginStatus, setLoginStatus] = useState('');
 
 
   axios.defaults.withCredentials = true;
+
+  const logout=()=>{
+    localStorage.clear();
+    setlogIn(false);
+
+  }
+  
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -35,6 +44,25 @@ function Login(){
        
       });
  
+  }
+  React.useEffect(()=>{
+    const loggedIn = localStorage.getItem('user')
+    console.log(1);
+    if(loggedIn)
+    {
+      setlogIn(true);
+    }
+
+  });
+
+  if(logIn){
+    return(
+      <div>
+      <h1>You are already logged in </h1>
+      <Button onClick = {logout}>Logout</Button>
+
+      </div>
+    )
   }
 
    

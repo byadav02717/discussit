@@ -23,6 +23,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard () {
     const [groupL, setgroupL] = useState([]);
+    const [User, setUser] = useState({});
+    const [logIn, setlogIn] = useState(false);
     const [load, setload] = useState(false);
     const classes = useStyles()
     let history = useHistory();
@@ -34,43 +36,74 @@ export default function Dashboard () {
         history.push('/group'); 
     }
 
-    let local_data = localStorage.getItem('user');
-    local_data = JSON.parse(local_data);
+    
+    
 
     
 
-    var userId = JSON.parse(localStorage.getItem('user')).id;
+   // var userId = JSON.parse(localStorage.getItem('user')).id;
     var grouplist = [];
     //const groupL = [];
 
-   useEffect(() => {
-    axios({
-        method: 'get',
-        url: 'http://localhost:3005/groups',
-        data: {
-            id: userId
-        }
-        }).then((response) => {
-    
-        for (var i =0; i<response.data.length; i++)
+    React.useEffect(()=>{
+        const loggedIn = localStorage.getItem('user')
+        console.log(1);
+        if(loggedIn)
         {
-            grouplist.push(response.data[i]);
+          setlogIn(true);
         }
-        setgroupL(grouplist);
-        });
-       
-   }, [local_data.id]);
     
-   if(local_data.id === '-1'){
-    return(
-        <div>
-            <p>You are not logged in.  Please log in first.</p>
-            <Login></Login>
-        </div>
-    )
-}
+      });
+    
+      axios.defaults.withCredentials = true;
 
-    //var groupL = grouplist;
+   useEffect(() => {
+   
+    if(logIn)
+    {
+        let loggedIn= localStorage.getItem('user')
+        const local_data = JSON.parse(loggedIn);
+        setUser(local_data);
+        
+        var userid = JSON.parse(localStorage.getItem('user')).id;
+        console.log(userid);
+        
+        axios({
+            method: 'get',
+            url: 'http://localhost:3005/groups',
+            params: {
+                id: userid
+            }
+            }).then((response) => {
+        
+            for (var i =0; i<response.data.length; i++)
+            {
+                grouplist.push(response.data[i]);
+            }
+            setgroupL(grouplist);
+            
+            });
+        
+       
+    }
+
+
+       
+   },[logIn]);
+
+  
+    
+   if(!logIn){
+    return(
+      <div>
+      <p>You are not logged in.  Please log in first.</ p>
+      
+
+      </div>
+    )
+  }
+
+else{
     return (
         <div className="dashboard" >
             {console.log(groupL)}
@@ -108,4 +141,9 @@ export default function Dashboard () {
         </div>
 
     )
+
+}
+
+    
+   
 }
