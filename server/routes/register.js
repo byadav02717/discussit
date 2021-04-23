@@ -181,8 +181,48 @@ app.post('/answer', (req,res)=>{
     
 });
 
+
+app.post('/addmember',(req,res)=>{
+    const GId = req.body.GId;
+    const email = req.body.Email;
+    let sql = `SELECT id FROM users WHERE EMAIL = ?`;
+    
+    let sql2 = `INSERT INTO groupmembers(GId, id) VALUES (?,?)`;
+
+
+    database.query(sql,[email],
+        (err, result)=>{
+            if(err){
+                console.log(error);
+            }
+            else{
+                console.log(result)
+                console.log(result.length)
+                if(result.length == 1)
+                {
+                    database.query(sql2, [GId, result[0].id],
+                        (err2,result2)=>{
+                            if(err2){
+                                console.log(err2)
+                                res.send({message:"Member already exists"})
+                            }
+                            else{
+                                console.log(result2);
+                                res.send({message:"Member added Sucessfully."})
+                            }
+                        })
+                   
+                }
+                else{
+                    console.log("User does not exist.")
+                }
+            }
+        })
+        
+ 
+})
+
 app.get('/getquestions',(req,res)=>{
-    //const GId = 5;
     const GId = req.query.GId;
     console.log(GId);
     let sql = `SELECT * FROM questions WHERE GId = ?`;
