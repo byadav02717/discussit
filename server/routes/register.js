@@ -5,6 +5,8 @@ const saltRounds = 10
 
 var database = require('../config/database');
 
+
+//POST method to register a user. Add email and hashed password into the database.
 app.post('/register', (req,res)=>{
     const Email=req.body.Email;
     const Password=req.body.Password;
@@ -79,6 +81,7 @@ app.post('/login',async(req,res)=>{
      );
  });
 
+ //POST method to create a new group. The user who create the group will be the admin of the group and also a member.
  app.post('/creategroup', (req,res)=>{
     const GName=req.body.GName;
     const Gdesc=req.body.Gdesc;
@@ -123,6 +126,7 @@ app.post('/login',async(req,res)=>{
     
 });
 
+//POST method to add a question in a group into the database.
 app.post('/question', (req,res)=>{
     const id = req.body.id;
     const GId = req.body.GId;
@@ -153,6 +157,7 @@ app.post('/question', (req,res)=>{
     
 });
 
+//POST method to add an answer to a question in the database.
 app.post('/answer', (req,res)=>{
     const QId = req.body.QId;
     const id = req.body.id;
@@ -181,7 +186,25 @@ app.post('/answer', (req,res)=>{
     
 });
 
+//GET method to get all the answers posted for a particular questions.
+app.get('/getanswers',(req,res)=>{
+    const QId = req.query.QId;
+    let sql = `SELECT * FROM answers WHERE QId = ?`;
+    database.query(sql,[QId],
+        (err, result)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(result)
+                res.send(result)
+            }
+        })
+})
 
+//post method to add a user to the group.
 app.post('/addmember',(req,res)=>{
     const GId = req.body.GId;
     const email = req.body.Email;
@@ -222,6 +245,7 @@ app.post('/addmember',(req,res)=>{
  
 })
 
+//GET method to get all the questions in a group
 app.get('/getquestions',(req,res)=>{
     const GId = req.query.GId;
     console.log(GId);
@@ -238,6 +262,7 @@ app.get('/getquestions',(req,res)=>{
         });
 })
 
+//GET method to get the names and group id of all the groups, a user is in.
 app.get('/groups',(req,res)=>{
     const id = req.query.id;
     console.log(id)
@@ -289,8 +314,5 @@ app.get('/groups',(req,res)=>{
     );
 
 });
-
-
-
 
 module.exports = app;
