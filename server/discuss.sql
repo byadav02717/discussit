@@ -1,5 +1,5 @@
-create schema discussit1;
-use discussit1;
+create schema discussit;
+use discussit;
 
 CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT,
