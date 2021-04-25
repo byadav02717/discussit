@@ -99,7 +99,7 @@ app.post('/login',async(req,res)=>{
                 else{
                        console.log(result)
                        //res.send({message:"Group Created"});
-                        let sql2 = `INSERT INTO groupmembers (GId, id) VALUES (?,?)`;
+                        let sql2 = `INSERT INTO groupmembers (GId, id, auth) VALUES (?,?, 3)`; // add owner of group to group with auth 3 (owner)
                         //res.send({message:"Group Created"});
                         database.query(
                             sql2,[result.insertId,id],
