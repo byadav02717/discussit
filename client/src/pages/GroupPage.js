@@ -11,56 +11,50 @@ import {
 } from '@material-ui/core/'
 import CreateQuestion from '../components/CreateQuestion'
 
-var questions = [];
-questions.push({QId: 0, id: 1, GId: 0, Topic: "How do I post a question?", Question: "I'm having trouble figuring out how to post a question, can anyone help out?"});
-questions.push({QId: 1, id: 1, GId: 0, Topic: "Where is the FAQ?", Question: "I can't find the FAQ, where is it?"});
-questions.push({QId: 2, id: 1, GId: 0, Topic: "I need help!", Question: "I need help fast! When is HW1 due?"});
-questions.push({QId: 3, id: 1, GId: 0, Topic: "Can someone tell me how I do this?", Question: "How do I reply to someone else's question?"});
-questions.push({QId: 4, id: 1, GId: 0, Topic: "When is Quiz 1?", Question: "When is Quiz 1?"});
-questions.push({QId: 5, id: 1, GId: 0, Topic: "When is Quiz 2?", Question: "When is Quiz 2?"});
-questions.push({QId: 6, id: 1, GId: 0, Topic: "When is Quiz 3?", Question: "When is Quiz 3?"});
-questions.push({QId: 7, id: 1, GId: 0, Topic: "When is Quiz 4?", Question: "When is Quiz 4?"});
-questions.push({QId: 8, id: 1, GId: 0, Topic: "When is Quiz 5?", Question: "When is Quiz 5?"});
-questions.push({QId: 9, id: 1, GId: 0, Topic: "When is Exam 1?", Question: "When is Exam 1?"});
-questions.push({QId: 10, id: 1, GId: 0, Topic: "When is Exam 2?", Question: "When is Exam 2?"});
-questions.push({QId: 11, id: 1, GId: 0, Topic: "When is Exam 3?", Question: "When is Exam 3?"});
-questions.push({QId: 12, id: 1, GId: 0, Topic: "When is Exam 4?", Question: "When is Exam 4?"});
-
-var answers = [];
-/*
-questions.forEach(q => {
-    answers.push({AnswerId: 0, QId: q.QId, 
-        id: q.id, Answer: q.Question});
-})
-*/
-answers.push({AnswerId: 0, QId: 0, id: questions[0].id, Answer: questions[0].Question});
-answers.push({AnswerId: 13, QId: 0, id: 2, Answer: "Click the 'Post Question' button."});
-
-var users = [];
-users.push({id: 1, email: "test@gmail.com"});
-users.push({id: 2, email: "john@gmail.com"});
-
-
-
 export default function GroupPage() {
-    const [questionData, setquestionData] = useState([]);
     var groupName = localStorage.getItem('groupName');
+
+    const [questionData, setquestionData] = useState([]);
+    const [userData, setUserData] = useState([]);
+    
     const [currAnswers, setCurrAnswers] = useState([]);
     const [loadAgain, setloadAgain] = useState(false);
+    const [answerText, setAnswer] = useState('');
+    var currentQuestion = 0;
 
     function renderQuestions(props) {
         const { index, style } = props;
       
         return (
           <ListItem button style={style} key={index} onClick={() => {
-              var answerList = []
-              answers.forEach(answer => {
-                if(answer.QId === index)
-                {
-                    answerList.push(answer)
-                }
-              })
-              setCurrAnswers(answerList)
+              currentQuestion = index;
+
+                var answer = [];
+                var questionID = questionData[index].QId;
+                var questionPoster = questionData[index].id;
+                var questionText = questionData[index].Question; 
+
+                console.log(questionID)
+
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:3005/getanswers',
+                    params: {
+                        QId: questionID
+                    }
+                    }).then((response) => {
+                        
+                        answer.push({answerId: -1, QId: questionID, id: questionPoster, Answer: questionText})
+
+                        for (var i = 0; i<response.data.length; i++)
+                        {
+                            answer.push(response.data[i]);
+                        }
+
+                        setCurrAnswers(answer);
+                        console.log(currAnswers);
+                    });
+                   
           }}>
             <ListItemText primary={`${questionData[index].Topic}`} />
           </ListItem>
@@ -77,8 +71,8 @@ export default function GroupPage() {
         console.log(currAnswers)
         return (
           <ListItem style={style} key={index}>
-            <ListItemText primary={`${answers[index].Answer}`} />
-            <ListItemText className='li-secondary' secondary={`Posted by: ${users[answers[index].id-1].email}`} />
+            <ListItemText primary={`${currAnswers[index].Answer}`} />
+            <ListItemText className='li-secondary' secondary={`Posted by: ${userData.find(x => x.id === currAnswers[index].id).email}`} />
           </ListItem>
         );
     }
@@ -86,7 +80,27 @@ export default function GroupPage() {
         index: PropTypes.number.isRequired,
         style: PropTypes.object.isRequired,
     };
+
+    // get user data
+    useEffect(() => {
+        var user = [];
+        axios({
+            method: 'get',
+            url: 'http://localhost:3005/getusers',
+            }).then((response) => {
+        
+            for (var i = 0; i<response.data.length; i++)
+            {
+                user.push(response.data[i]);
+            }
+
+            setUserData(user);
+            console.log(userData);
+        });
+           
+       }, [loadAgain]);
     
+    // get questions data
     useEffect(() => {
         var question = [];
         var groupID = localStorage.getItem('groupID');
@@ -104,9 +118,29 @@ export default function GroupPage() {
                 question.push(response.data[i]);
             }
             setquestionData(question);
-            });
+        });
            
        }, [loadAgain]);
+
+       const handlePostAnswer=()=>{
+        var userId = JSON.parse(localStorage.getItem('user')).id;
+        axios({
+            method: 'post',
+            url: 'http://localhost:3005/answer',
+            data: {
+                id: userId,
+                GId: localStorage.getItem('groupID'),
+                question: currentQuestion,
+                answer: answerText
+            }
+          }).then((response) => {
+            if (response.data.message) {
+              console.log(response.data.message);
+            }
+           
+          });
+          // refresh (history push)
+      }
 
     return (
         <div>
@@ -122,14 +156,16 @@ export default function GroupPage() {
                 </Grid>
 
                 <Grid className='AContainer' item xs={7.5}>  
-                <FixedSizeList height={400} width={900} itemSize={46} itemCount={answers.length}>
+                <FixedSizeList height={400} width={900} itemSize={46} itemCount={currAnswers.length}>
                     {renderAnswers}
                 </FixedSizeList>
 
                 <div className='reply-area'>
-                    <textarea id='reply-textarea' placeholder="Enter your comment or answer here."></textarea>
+                    <textarea id='reply-textarea' placeholder="Enter your comment or answer here." onChange={(e)=>{
+                        setAnswer(e.target.value);
+                    }}></textarea>
                     <br></br>
-                    <Button>
+                    <Button onClick={handlePostAnswer}>
                         Post Answer
                     </Button>
                 </div>
@@ -138,7 +174,6 @@ export default function GroupPage() {
                 </Grid>
 
                 <Button>
-                    
                     <CreateQuestion />
                 </Button>
             </div>

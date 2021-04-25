@@ -262,6 +262,38 @@ app.get('/getquestions',(req,res)=>{
         });
 })
 
+//GET method to get all the answers in a question
+app.get('/getanswers',(req,res)=>{
+    const QId = req.query.QId;
+    console.log(QId);
+    let sql = `SELECT * FROM answers WHERE QId = ?`;
+    database.query(sql, [QId], 
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        });
+})
+
+//GET method to get all the users id and emails
+app.get('/getusers',(req,res)=>{
+    let sql = `SELECT id, email FROM users`;
+    database.query(sql, [], 
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        });
+})
+
 //GET method to get the names and group id of all the groups, a user is in.
 app.get('/groups',(req,res)=>{
     const id = req.query.id;
