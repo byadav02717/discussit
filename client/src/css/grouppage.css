@@ -13,8 +13,10 @@
 }
 
 #reply-textarea {
+    margin: 5px;
     padding: 5px;
     height: 100px;
+    width: 950px;
     resize: none;
 }
 

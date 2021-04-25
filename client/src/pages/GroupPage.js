@@ -17,17 +17,17 @@ export default function GroupPage() {
     const [questionData, setquestionData] = useState([]);
     const [userData, setUserData] = useState([]);
     
+    const [currQuestion = -1, setCurrQuestion] = useState([]);
     const [currAnswers, setCurrAnswers] = useState([]);
     const [loadAgain, setloadAgain] = useState(false);
     const [answerText, setAnswer] = useState('');
-    var currentQuestion = 0;
 
     function renderQuestions(props) {
         const { index, style } = props;
-      
+
         return (
           <ListItem button style={style} key={index} onClick={() => {
-              currentQuestion = index;
+              setCurrQuestion(questionData[index].QId);
 
                 var answer = [];
                 var questionID = questionData[index].QId;
@@ -128,10 +128,9 @@ export default function GroupPage() {
             method: 'post',
             url: 'http://localhost:3005/answer',
             data: {
+                QId: currQuestion,
                 id: userId,
-                GId: localStorage.getItem('groupID'),
-                question: currentQuestion,
-                answer: answerText
+                Answer: answerText
             }
           }).then((response) => {
             if (response.data.message) {
@@ -155,8 +154,8 @@ export default function GroupPage() {
                 </FixedSizeList>
                 </Grid>
 
-                <Grid className='AContainer' item xs={7.5}>  
-                <FixedSizeList height={400} width={900} itemSize={46} itemCount={currAnswers.length}>
+                <Grid className='AContainer' item xs={7.75}>  
+                <FixedSizeList height={400} width={1000} itemSize={46} itemCount={currAnswers.length}>
                     {renderAnswers}
                 </FixedSizeList>
 
@@ -165,7 +164,7 @@ export default function GroupPage() {
                         setAnswer(e.target.value);
                     }}></textarea>
                     <br></br>
-                    <Button onClick={handlePostAnswer}>
+                    <Button classname='post-a-button' variant="outlined" color="primary" onClick={handlePostAnswer}>
                         Post Answer
                     </Button>
                 </div>
@@ -173,7 +172,7 @@ export default function GroupPage() {
 
                 </Grid>
 
-                <Button>
+                <Button className='post-q-button'>
                     <CreateQuestion />
                 </Button>
             </div>
