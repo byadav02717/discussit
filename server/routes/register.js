@@ -10,7 +10,6 @@ var database = require('../config/database');
 app.post('/register', (req,res)=>{
     const Email=req.body.Email;
     const Password=req.body.Password;
-    //console.log(req.body.Email);
     let sql = `INSERT INTO users (Email, Password) VALUES (?,?)`;
     bcrypt.hash(Password,saltRounds, (err, hash)=>{
         if(err){
@@ -43,7 +42,6 @@ app.post('/register', (req,res)=>{
 app.post('/login',async(req,res)=>{
     const Email=req.body.Email;
     const Password=req.body.Password;
-     //console.log(req.body.Email);
      let sql = `SELECT * FROM users WHERE Email = ?`;
      
  
@@ -64,14 +62,11 @@ app.post('/login',async(req,res)=>{
 
                 }
                 else{
-                    //res.send(false);
                     res.send({message: "Wrong username and password combination"});
-                    console.log("Wrong username and password combination");
                 }
             })
             }
             else{
-                //res.send(false);
                 res.send({message:"User doesn't exist"});                
 
             }
@@ -97,17 +92,14 @@ app.post('/login',async(req,res)=>{
                     res.send({message:"Group Not Created"});
                 }
                 else{
-                       console.log(result)
-                       //res.send({message:"Group Created"});
-                        let sql2 = `INSERT INTO groupmembers (GId, id, auth) VALUES (?,?, 3)`; // add owner of group to group with auth 3 (owner)
-                        //res.send({message:"Group Created"});
+                        // add owner of group to group with auth 2 (owner)
+                        let sql2 = `INSERT INTO groupmembers (GId, id, auth) VALUES (?,?, 2)`;
                         database.query(
                             sql2,[result.insertId,id],
                         
                             (err2,result2)=>{
                                 if(err2){
                                     console.log(err2);
-                                    //res.send({message:"not inserted to groupmembers"});
                                 }
                                 else
                                 {
@@ -133,7 +125,6 @@ app.post('/question', (req,res)=>{
     const topic = req.body.topic;
     const question = req.body.question;
     
-    //console.log(req.body.Email);
     let sql = `INSERT INTO questions(id, GId, Topic, Question) VALUES (?,?,?,?)`;
    
         database.query(
