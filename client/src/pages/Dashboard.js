@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import '../css/dashboard.css'
 import axios from 'axios';
 import CreateGroup from '../components/CreateGroup'
-import Login from './Login'
+import Alerts from '../components/Alerts'
 import { makeStyles } from '@material-ui/core/styles'
 
 import {
@@ -26,7 +26,7 @@ export default function Dashboard () {
     const [User, setUser] = useState({});
     const [logIn, setlogIn] = useState(false);
     const [load, setload] = useState(false);
-    const classes = useStyles()
+    const classes = useStyles();
     let history = useHistory();
 
     function openGroupPage(groupID, groupName) 
@@ -35,11 +35,6 @@ export default function Dashboard () {
         localStorage.setItem('groupName', groupName);
         history.push('/group'); 
     }
-
-    
-    
-
-    
 
    // var userId = JSON.parse(localStorage.getItem('user')).id;
     var grouplist = [];
@@ -106,7 +101,10 @@ export default function Dashboard () {
 else{
     return (
         <div className="dashboard" >
-            {console.log(groupL)}
+            <p>Alerts: </p>
+                <Alerts />
+            <br></br>
+
             <p>Create a new Group: </p>
             
             <CreateGroup />

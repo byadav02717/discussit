@@ -214,12 +214,14 @@ app.get('/getquestions',(req,res)=>{
         });
 })
 
-//GET method to get all the answers in a question
-app.get('/getanswers',(req,res)=>{
-    const QId = req.query.QId;
-    console.log(QId);
-    let sql = `SELECT * FROM answers WHERE QId = ?`;
-    database.query(sql, [QId], 
+//GET method to get all the alerts (invites) for a user
+app.get('/getalerts',(req,res)=>{
+    const userId = req.query.userId;
+    console.log('alerts '+userId);
+    
+    let sql = `SELECT * FROM invites WHERE userId = ?`;
+
+    database.query(sql, [userId], 
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -296,18 +298,17 @@ app.get('/groups',(req,res)=>{
         }
 
     );
+})
 
+// post method to store the request made by group to user to join the group
+app.post('/request', (req,res)=>{
 
-    // post method to store the request made by group to user to join the group
-
-    app.post('/request', (req,res)=>{
-
-        const GId = req.body.GId;
-        const email = req.body.Email;
-        const inviteId = req.body.inviteId;
-        let sql1 = `SELECT id FROM users WHERE EMAIL = ?`;
+    const GId = req.body.GId;
+    const email = req.body.Email;
+    const inviteId = req.body.inviteId;
+    let sql1 = `SELECT id FROM users WHERE EMAIL = ?`;
     
-    let sql2 = `INSERT INTO invites(GId, userId, inviteId) VALUES (?,?)`;
+    let sql2 = `INSERT INTO invites(GId, userId, inviteId) VALUES (?,?,?)`;
 
 
     database.query(sql1,[email],
@@ -337,17 +338,19 @@ app.get('/groups',(req,res)=>{
                     console.log("User does not exist.")
                 }
             }
-        })
-
-    })
+        });
+})
 
 //POST method to accept the membership request. It basically add the user to that group by 
 // inserting the data into groupmembers table.
-    app.post('/accept', (req, res)=>{
+app.post('/accept', (req, res)=>{
+
         const GId = req.body.GId;
         const id = req.body.id;
         let sql1 = `INSERT INTO groupmembers(GId, id) VALUES (?,?)`;
+
         let sql2 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
+
         database.query(sql1, [GId, id],
             (err1,result1)=>{
                 if(err1){
@@ -370,13 +373,13 @@ app.get('/groups',(req,res)=>{
                     res.send({message:"Membership accepted"})
 
                 }
-            })
-    })
+            });
+})
 
 
-    // DELETE method to delete the pending request to join certain groups.
-    //It removes the particular request record associated with that user invites table.
-    app.delete('/delete', (req, res)=>{
+// DELETE method to delete the pending request to join certain groups.
+//It removes the particular request record associated with that user invites table.
+app.delete('/delete', (req, res)=>{
         const GId = req.params.GId;
         const id = req.params.id;
        
@@ -393,14 +396,7 @@ app.get('/groups',(req,res)=>{
                     console.log("Request deleted")
                 }
             }
-        )
-                    
-
-    })
-
-
-
-
-});
+        );
+})
 
 module.exports = app;
