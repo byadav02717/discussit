@@ -3,3 +3,34 @@
     padding: 20px;
     margin: 20px;
   }
+
+.Qa{
+    height: 250px;
+    width: 400px;
+}
+
+.Gr{
+    height: 200px;
+    width: 400px;
+}
+
+.UI{
+    height: 200px;
+    width: 400px;
+}
+
+.Title{
+    text-align: center;
+}
+
+.list{
+    text-align:left;
+    font-style: italic;
+    
+
+}
+
+.mail{
+     height: 250px;
+    width: 400px;
+}
