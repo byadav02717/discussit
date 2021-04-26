@@ -248,8 +248,7 @@ app.get('/getquestions',(req,res)=>{
 //GET method to get all the alerts (invites) for a user
 app.get('/getalerts',(req,res)=>{
     const userId = req.query.userId;
-    console.log('alerts '+userId);
-    
+        
     let sql = `SELECT * FROM invites WHERE userId = ?`;
 
     database.query(sql, [userId], 
@@ -370,7 +369,6 @@ app.post('/request', (req,res)=>{
             }
             else{
                 console.log(result)
-                console.log(result.length)
                 if(result.length == 1)
                 {
                     database.query(sql2, [GId, result[0].id, inviteId, groupName, InviterEmail],
