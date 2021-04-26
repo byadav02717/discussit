@@ -42,6 +42,9 @@ export default function CreateGroup() {
       });
       setOpen(false);
 
+      setTimeout(function () {
+        window.location.reload();
+      }, 500);
     }
 
   return (
