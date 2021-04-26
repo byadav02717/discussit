@@ -10,6 +10,7 @@ import {
     Button
 } from '@material-ui/core/'
 import CreateQuestion from '../components/CreateQuestion'
+import AdminModule from '../components/AdminModule'
 
 export default function GroupPage() {
     var groupName = localStorage.getItem('groupName');
@@ -147,7 +148,8 @@ export default function GroupPage() {
         <div>
             <div className="group-body">
                 <h1>{groupName}</h1>
-                {console.log(questionData)}
+                <AdminModule />
+
                 <Grid container>
 
                 <Grid className='QContainer' item xs={2.4}>    

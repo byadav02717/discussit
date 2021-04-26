@@ -279,6 +279,24 @@ app.get('/getusers',(req,res)=>{
         });
 })
 
+//GET method to get auth level of specific user
+app.get('/getauth',(req,res)=>{
+    const groupId = req.query.groupId;
+    const userId = req.query.userId;
+    let sql = `SELECT auth FROM groupmembers WHERE GId = ? AND id = ?`;
+
+    database.query(sql, [groupId, userId], 
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        });
+})
+
 //GET method to get the names and group id of all the groups, a user is in.
 app.get('/groups',(req,res)=>{
     const id = req.query.id;
@@ -337,9 +355,12 @@ app.post('/request', (req,res)=>{
     const GId = req.body.GId;
     const email = req.body.Email;
     const inviteId = req.body.inviteId;
+    const groupName = req.body.groupName;
+    const InviterEmail = req.body.InviterEmail;
+    
     let sql1 = `SELECT id FROM users WHERE EMAIL = ?`;
     
-    let sql2 = `INSERT INTO invites(GId, userId, inviteId) VALUES (?,?,?)`;
+    let sql2 = `INSERT INTO invites(GId, userId, inviteId, GName, InviterEmail) VALUES (?,?,?,?,?)`;
 
 
     database.query(sql1,[email],
@@ -352,7 +373,7 @@ app.post('/request', (req,res)=>{
                 console.log(result.length)
                 if(result.length == 1)
                 {
-                    database.query(sql2, [GId, result[0].id, inviteId],
+                    database.query(sql2, [GId, result[0].id, inviteId, groupName, InviterEmail],
                         (err2,result2)=>{
                             if(err2){
                                 console.log(err2)
