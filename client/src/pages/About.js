@@ -5,7 +5,9 @@ export default function About() {
     return (
         <div className="container">
             <div className="row">
-                <h1>About</h1> 
+                <div className= "Title">
+                    <h1>About Us</h1> 
+                    </div>
             </div>
             <div className="row">
                 <div className="statement">
@@ -14,7 +16,7 @@ export default function About() {
             </div>
             <div className="row">
                 <div className="col s6">
-                    <h5>Picture will go here</h5>
+                     <img src="/Qa.jpg" alt="" className="Qa" />
                 </div>
                 <div className="col s6">
                     <h5>Free Q&A Format</h5>
@@ -27,12 +29,12 @@ export default function About() {
                     <p>Groups are created by teachers and have the ability to customize them as they see fit with custom tags for questions and complete control over who has access to the group.</p>
                 </div>
                 <div className="col s6">
-                    <h5>Picture will go here</h5>
+                    <img src="/groups.jpg" alt="" className="Gr" />
                 </div>
             </div>
             <div className="row">
                 <div className="col s6">
-                    <h5>Picture will go here</h5>
+                     <img src="/UI.jpg" alt="" className="UI" />
                 </div>
                 <div className="col s6">
                     <h5>Streamlined UI</h5>
