@@ -17,6 +17,7 @@ import {
 import Registersucess from './pages/Registersucess';
 import Dashboard from './pages/Dashboard';
 import GroupPage from './pages/GroupPage';
+import profile from './pages/Profile.js';
 
 function App() {
   
@@ -59,6 +60,7 @@ function App() {
     <Route path="/registersucess" component = {Registersucess}/>
     <Route path="/dashboard" component = {Dashboard} />
     <Route path="/group" component = {GroupPage} />
+    
 </Switch>
   
 </div>

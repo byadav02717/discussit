@@ -37,6 +37,37 @@ app.post('/register', (req,res)=>{
     }) 
 });
 
+//change password 
+app.put('/changepw', (req,res)=>{
+    const id=req.body.id;
+    const Password=req.body.Password;
+    let sql = `UPDATE users SET PASSWORD = ? WHERE id = ?`;
+    bcrypt.hash(Password,saltRounds, (err, hash)=>{
+        if(err){
+            console.log(err);
+        }
+        
+        database.query(
+            sql,[hash,id],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send(false);
+                }
+                else{
+                    console.log(result)
+                    res.send(true);
+    
+                }
+               
+            }
+    
+        );
+
+    }) 
+});
+
 
 
 app.post('/login',async(req,res)=>{
@@ -342,7 +373,7 @@ app.get('/groups',(req,res)=>{
     })
 
 //POST method to accept the membership request. It basically add the user to that group by 
-// inserting the data into groupmembers table.
+//Inserting the data into groupmembers table.
     app.post('/accept', (req, res)=>{
         const GId = req.body.GId;
         const id = req.body.id;
@@ -397,9 +428,6 @@ app.get('/groups',(req,res)=>{
                     
 
     })
-
-
-
 
 });
 
