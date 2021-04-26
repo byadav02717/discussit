@@ -138,7 +138,9 @@ export default function GroupPage() {
            
           });
           // refresh 
-          window.location.reload();
+          setTimeout(function () {
+            window.location.reload();
+          }, 500);
       }
 
     return (

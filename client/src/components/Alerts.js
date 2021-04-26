@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 const cardStyle = {
   width: '20vw',
-  height: '10vw',
+  height: '8vw',
 }
 
 export default function Alerts() {

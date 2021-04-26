@@ -41,7 +41,10 @@ export default function CreateQuestion() {
        
       });
       setOpen(false);
-      window.location.reload();
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 500);
   }
 
   return (
