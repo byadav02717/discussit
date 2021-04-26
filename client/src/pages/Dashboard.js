@@ -102,9 +102,7 @@ else{
                 <Alerts />
             <br></br>
 
-            <p>Create a new Group: </p>
-            
-            <CreateGroup />
+            <p>Your Groups: </p>
             
             <div id='groups' className={classes.root}>
             <Grid
@@ -132,6 +130,8 @@ else{
 
             </Grid>
         </div>
+    
+        <CreateGroup />
 
         </div>
 

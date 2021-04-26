@@ -18,8 +18,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const cardStyle = {
-  width: '15vw',
-  height: '7vw',
+  width: '20vw',
+  height: '10vw',
 }
 
 export default function Alerts() {
@@ -42,7 +42,7 @@ export default function Alerts() {
       if (response.data.message) {
       }
     });
-    
+
     window.location.reload();
   }
 
@@ -82,9 +82,7 @@ export default function Alerts() {
         }
 
         setAlerts(alert);
-        console.log(alerts)
-    });
-       
+    });   
   }, [false]);
 
   if (alerts.length > 0)
@@ -106,7 +104,7 @@ export default function Alerts() {
               <Grid item xs={12} sm={6} md={2} key={alerts.indexOf(elem)}>
                   <Card style={cardStyle}>
                       <CardHeader
-                          subheader={`You were invited to ${elem.GId} by ${elem.inviteId}`}
+                          subheader={`You were invited to ${elem.GName} by ${elem.InviterEmail}`}
                       />
                       <CardContent>
                         <Button style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} 
