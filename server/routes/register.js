@@ -195,46 +195,7 @@ app.get('/getanswers',(req,res)=>{
         })
 })
 
-//post method to add a user to the group.
-app.post('/addmember',(req,res)=>{
-    const GId = req.body.GId;
-    const email = req.body.Email;
-    let sql = `SELECT id FROM users WHERE EMAIL = ?`;
-    
-    let sql2 = `INSERT INTO groupmembers(GId, id) VALUES (?,?)`;
 
-
-    database.query(sql,[email],
-        (err, result)=>{
-            if(err){
-                console.log(error);
-            }
-            else{
-                console.log(result)
-                console.log(result.length)
-                if(result.length == 1)
-                {
-                    database.query(sql2, [GId, result[0].id],
-                        (err2,result2)=>{
-                            if(err2){
-                                console.log(err2)
-                                res.send({message:"Member already exists"})
-                            }
-                            else{
-                                console.log(result2);
-                                res.send({message:"Member added Sucessfully."})
-                            }
-                        })
-                   
-                }
-                else{
-                    console.log("User does not exist.")
-                }
-            }
-        })
-        
- 
-})
 
 //GET method to get all the questions in a group
 app.get('/getquestions',(req,res)=>{
@@ -335,6 +296,103 @@ app.get('/groups',(req,res)=>{
         }
 
     );
+
+    app.post('/request', (req,res)=>{
+
+        const GId = req.body.GId;
+        const email = req.body.Email;
+        const inviteId = req.body.inviteId;
+        let sql1 = `SELECT id FROM users WHERE EMAIL = ?`;
+    
+    let sql2 = `INSERT INTO invites(GId, userId, inviteId) VALUES (?,?)`;
+
+
+    database.query(sql1,[email],
+        (err, result)=>{
+            if(err){
+                console.log(error);
+            }
+            else{
+                console.log(result)
+                console.log(result.length)
+                if(result.length == 1)
+                {
+                    database.query(sql2, [GId, result[0].id, inviteId],
+                        (err2,result2)=>{
+                            if(err2){
+                                console.log(err2)
+                                res.send({message:"Request already sent"})
+                            }
+                            else{
+                                console.log(result2);
+                                res.send({message:"Requested sent sucessfully"})
+                            }
+                        })
+                   
+                }
+                else{
+                    console.log("User does not exist.")
+                }
+            }
+        })
+
+    })
+
+
+    app.post('/accept', (req, res)=>{
+        const GId = req.body.GId;
+        const id = req.body.id;
+        let sql1 = `INSERT INTO groupmembers(GId, id) VALUES (?,?)`;
+        let sql2 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
+        database.query(sql1, [GId, id],
+            (err1,result1)=>{
+                if(err1){
+                    console.log(err1)
+                    res.send({message:"You are already a member"})
+                }
+                else{
+                    console.log(result1);
+                    database.query(sql2, [GId, id],
+                        (err2,result2)=>{
+                            if(err2){
+                                console.log(err2)
+                                console.log("Request not deleted")
+                            }
+                            else{
+                                console.log(result2);
+                                console.log("Request deleted")
+                            }
+                        })
+                    res.send({message:"Membership accepted"})
+
+                }
+            })
+    })
+
+    app.delete('/delete', (req, res)=>{
+        const GId = req.body.GId;
+        const id = req.body.id;
+       
+        let sql1 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
+       
+        database.query(sql1, [GId, id],
+            (err1,result1)=>{
+                if(err1){
+                    console.log(err1)
+                    console.log("Request not deleted")
+                }
+                else{
+                    console.log(result1);
+                    console.log("Request deleted")
+                }
+            }
+        )
+                    
+
+    })
+
+
+
 
 });
 
