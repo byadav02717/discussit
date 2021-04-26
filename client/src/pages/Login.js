@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import "../Form.css"
-import { Button } from '@material-ui/core';
+
+import Profile from './Profile';
+import Button from '@material-ui/core/Button';
+
+
 
 
 function Login(){
@@ -58,8 +62,14 @@ function Login(){
   if(logIn){
     return(
       <div>
-      <h1>You are already logged in </h1>
+      <p>You are already logged in </p>
       <Button onClick = {logout}>Logout</Button>
+      <br/><br/>
+      <br/><br/>
+
+      <div>
+        <Profile />
+      </div>
 
       </div>
     )

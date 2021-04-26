@@ -52,10 +52,6 @@ app.use(cookieParser());
 
 
 
-// This is to allow our api  for cross-origin resource sharing
-//app.use(cors());
-
-// THi is to allow our api for parsing json
 
 
 app.use(express.urlencoded({
@@ -70,14 +66,8 @@ app.use(express.urlencoded({
 //Register routes in the main index.js
 app.use('/',[
     require('./routes/register')
-    //require('./routes/auth')
+    
 ]);
-
-// http://localhost:3005/tweets - GET, POST
-// http://localhost:3005/tweets/user/:id - GET
-// http://localhost:3005/tweets/:id - DELETE
-
-// http://localhost:3005/authenticate - POST for login session
 
 
 

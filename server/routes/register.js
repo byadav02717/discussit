@@ -37,6 +37,37 @@ app.post('/register', (req,res)=>{
     }) 
 });
 
+//change password 
+app.put('/changepw', (req,res)=>{
+    const id=req.body.id;
+    const Password=req.body.Password;
+    let sql = `UPDATE users SET PASSWORD = ? WHERE id = ?`;
+    bcrypt.hash(Password,saltRounds, (err, hash)=>{
+        if(err){
+            console.log(err);
+        }
+        
+        database.query(
+            sql,[hash,id],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send(false);
+                }
+                else{
+                    console.log(result)
+                    res.send(true);
+    
+                }
+               
+            }
+    
+        );
+
+    }) 
+});
+
 
 
 app.post('/login',async(req,res)=>{

@@ -64,6 +64,7 @@ export default function CreateQuestion() {
           <TextField
           id="outlined-secondary"
           label="Topic"
+          fullWidth
           multiline
           rows = {1}
           margin = "normal"
