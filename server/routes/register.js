@@ -297,6 +297,9 @@ app.get('/groups',(req,res)=>{
 
     );
 
+
+    // post method to store the request made by group to user to join the group
+
     app.post('/request', (req,res)=>{
 
         const GId = req.body.GId;
@@ -338,7 +341,8 @@ app.get('/groups',(req,res)=>{
 
     })
 
-
+//POST method to accept the membership request. It basically add the user to that group by 
+// inserting the data into groupmembers table.
     app.post('/accept', (req, res)=>{
         const GId = req.body.GId;
         const id = req.body.id;
@@ -369,9 +373,12 @@ app.get('/groups',(req,res)=>{
             })
     })
 
+
+    // DELETE method to delete the pending request to join certain groups.
+    //It removes the particular request record associated with that user invites table.
     app.delete('/delete', (req, res)=>{
-        const GId = req.body.GId;
-        const id = req.body.id;
+        const GId = req.params.GId;
+        const id = req.params.id;
        
         let sql1 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
        
