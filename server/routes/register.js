@@ -377,12 +377,14 @@ app.post('/request', (req,res)=>{
 app.post('/accept', (req, res)=>{
 
         const GId = req.body.GId;
-        const id = req.body.id;
+        const userId = req.body.id;
+        const inviteId = req.body.inviteId;
+
         let sql1 = `INSERT INTO groupmembers(GId, id) VALUES (?,?)`;
 
-        let sql2 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
+        let sql2 = `DELETE FROM invites WHERE GId = ? AND userId = ? AND inviteId = ?`;
 
-        database.query(sql1, [GId, id],
+        database.query(sql1, [GId, userId],
             (err1,result1)=>{
                 if(err1){
                     console.log(err1)
@@ -390,7 +392,7 @@ app.post('/accept', (req, res)=>{
                 }
                 else{
                     console.log(result1);
-                    database.query(sql2, [GId, id],
+                    database.query(sql2, [GId, userId, inviteId],
                         (err2,result2)=>{
                             if(err2){
                                 console.log(err2)
@@ -410,13 +412,14 @@ app.post('/accept', (req, res)=>{
 
 // DELETE method to delete the pending request to join certain groups.
 //It removes the particular request record associated with that user invites table.
-app.delete('/delete', (req, res)=>{
-        const GId = req.params.GId;
-        const id = req.params.id;
+app.post('/delete', (req, res)=>{
+        const GId = req.body.GId;
+        const userId = req.body.id;
+        const inviteId = req.body.inviteId;
        
-        let sql1 = `DELETE FROM invites(GId, id) VALUES (?,?)`;
+        let sql1 = `DELETE FROM invites WHERE GId = ? AND userId = ? AND inviteId = ?`;
        
-        database.query(sql1, [GId, id],
+        database.query(sql1, [GId, userId, inviteId],
             (err1,result1)=>{
                 if(err1){
                     console.log(err1)

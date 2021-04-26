@@ -19,7 +19,6 @@ export default function GroupPage() {
     
     const [currQuestion = -1, setCurrQuestion] = useState([]);
     const [currAnswers, setCurrAnswers] = useState([]);
-    const [loadAgain, setloadAgain] = useState(false);
     const [answerText, setAnswer] = useState('');
 
     function renderQuestions(props) {
@@ -98,7 +97,7 @@ export default function GroupPage() {
             console.log(userData);
         });
            
-       }, [loadAgain]);
+       }, [false]);
     
     // get questions data
     useEffect(() => {
@@ -120,7 +119,7 @@ export default function GroupPage() {
             setquestionData(question);
         });
            
-       }, [loadAgain]);
+       }, [false]);
 
        const handlePostAnswer=()=>{
         var userId = JSON.parse(localStorage.getItem('user')).id;
@@ -138,7 +137,8 @@ export default function GroupPage() {
             }
            
           });
-          // refresh (history push)
+          // refresh 
+          window.location.reload();
       }
 
     return (

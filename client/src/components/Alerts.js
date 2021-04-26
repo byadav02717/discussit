@@ -9,6 +9,7 @@ import {
     Button
 } from '@material-ui/core/'
 
+
 const useStyles = makeStyles(theme => ({
   root: {
       flexGrow: 1,
@@ -24,19 +25,44 @@ const cardStyle = {
 export default function Alerts() {
   var userId = JSON.parse(localStorage.getItem('user')).id;
   const [alerts, setAlerts] = useState('');
-  const [loadAgain, setloadAgain] = useState(false);
   const classes = useStyles();
 
   function acceptInvite(groupID, inviteId) 
   {
     // accept GId, userId
-
+    axios({
+      method: 'post',
+      url: 'http://localhost:3005/accept',
+      data: {
+          GId: groupID,
+          id: userId,
+          inviteId: inviteId
+      }
+    }).then((response) => {
+      if (response.data.message) {
+      }
+    });
+    
+    window.location.reload();
   }
 
   function declineInvite(groupID, inviteId) 
   {
     // decline GId, userId
+    axios({
+      method: 'post',
+      url: 'http://localhost:3005/delete',
+      data: {
+          GId: groupID,
+          id: userId,
+          inviteId: inviteId
+      }
+    }).then((response) => {
+      if (response.data.message) {
+      }
+    });
 
+    window.location.reload();
   }
 
   // get user invites (alerts)
@@ -59,7 +85,7 @@ export default function Alerts() {
         console.log(alerts)
     });
        
-  }, [loadAgain]);
+  }, [false]);
 
   if (alerts.length > 0)
   {

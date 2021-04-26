@@ -8,11 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 
-
-
-
-
-
 export default function CreateQuestion() {
   var userId = JSON.parse(localStorage.getItem('user')).id;
    
@@ -38,8 +33,6 @@ export default function CreateQuestion() {
             GId: localStorage.getItem('groupID'),
             topic:Topic,
             question:Question
-            
-
         }
       }).then((response) => {
         if (response.data.message) {
@@ -48,6 +41,7 @@ export default function CreateQuestion() {
        
       });
       setOpen(false);
+      window.location.reload();
   }
 
   return (

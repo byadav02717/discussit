@@ -14,7 +14,7 @@ export default function CreateGroup() {
     local_data = JSON.parse(local_data);
     const [GName, setGName] = useState('');
     const [Gdesc, setGdesc] = useState('');
-    const [GroupCreation, setGroupCreation] = useState('');
+    //const [GroupCreation, setGroupCreation] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +36,7 @@ export default function CreateGroup() {
         }
       }).then((response) => {
         if (response.data.message) {
-          setGroupCreation(response.data.message);
+          //setGroupCreation(response.data.message);
         }
        
       });

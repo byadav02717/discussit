@@ -23,9 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard () {
     const [groupL, setgroupL] = useState([]);
-    const [User, setUser] = useState({});
     const [logIn, setlogIn] = useState(false);
-    const [load, setload] = useState(false);
     const classes = useStyles();
     let history = useHistory();
 
@@ -58,7 +56,6 @@ export default function Dashboard () {
     {
         let loggedIn= localStorage.getItem('user')
         const local_data = JSON.parse(loggedIn);
-        setUser(local_data);
         
         var userid = JSON.parse(localStorage.getItem('user')).id;
         console.log(userid);
