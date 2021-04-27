@@ -533,4 +533,24 @@ app.post('/delete', (req, res)=>{
         );
 })
 
+// DELETE method to delete FAQ
+app.post('/deletefaq', (req, res)=>{
+    const faqId = req.body.faqId;
+   
+    let sql = `DELETE FROM faq WHERE faqId = ?`;
+   
+    database.query(sql, [faqId],
+        (err1,result1)=>{
+            if(err1){
+                console.log(err1)
+                console.log("FAQ not deleted")
+            }
+            else{
+                console.log(result1);
+                console.log("FAQ deleted")
+            }
+        }
+    );
+})
+
 module.exports = app;
