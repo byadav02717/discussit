@@ -17,8 +17,13 @@ import {
 import Registersucess from './pages/Registersucess';
 import Dashboard from './pages/Dashboard';
 import GroupPage from './pages/GroupPage';
-import profile from './pages/Profile.js';
 
+/*
+functional componenet App is rendered through out website on every pages.
+It has Navigation bar that contains link to navigate to different pages on the website. They are Home, About, Contact, Dashboard and Login page.
+Browser Router is used to navigate to different pages on the website. 
+By default, it shows the home page.
+*/
 function App() {
   
   

@@ -1,6 +1,10 @@
 import React from 'react'
 import '../css/About.css';
+/*
+functional componenet About is the layout for About page.
+It is gridview of images and description related to purpose of the website
 
+*/
 export default function About() {
     return (
         <div className="container">
