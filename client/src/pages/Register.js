@@ -40,9 +40,9 @@ function Register() {
   }
 
   useEffect(() => {
-    var regexEmail = /@+.+(com|co|fr|net|de|ru|it|es|nl|ca|be|ch|edu)/;
+    var regexEmail = /@+.+(com|co|org|fr|net|de|ru|it|es|nl|ca|be|ch|edu)/;
     var resultEmail = regexEmail.test(emailReg);
-    if(!resultEmail)
+    if(!resultEmail && emailReg.length > 0)
     {
       setEmailError("Invalid email");
       seterr(true);
@@ -53,7 +53,7 @@ function Register() {
       seterr(false);
     }
 
-    if(passwordReg.length < 8 || passwordReg.lenght > 15)
+    if((passwordReg.length < 8 || passwordReg.length > 15) && passwordReg.length > 0)
     {
       setpasswordError("Length should be 8 to 15 characters");
       seterr1(true);
@@ -125,7 +125,7 @@ function Register() {
           Already have an account? Log in <a href='/login'>here</a>
           <br />
              
-          <button className='button' type="submit">Register</button>
+          <button className='button' type="submit" disabled={err || err1}>Register</button>
         </form>
 
        </ div>    
