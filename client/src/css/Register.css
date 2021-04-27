@@ -1,0 +1,8 @@
+div {
+  padding-bottom: 0px;
+}
+
+div.error {
+    padding-bottom: 0px;
+    color: red;
+}
