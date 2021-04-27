@@ -41,32 +41,43 @@ app.post('/register', (req,res)=>{
 app.put('/changepw', (req,res)=>{
     const id=req.body.id;
     const Password=req.body.Password;
+    const OldPassword = req.body.OldPassword
+    let sql1 = `SELECT * FROM users WHERE id = ?`;
     let sql = `UPDATE users SET PASSWORD = ? WHERE id = ?`;
-    bcrypt.hash(Password,saltRounds, (err, hash)=>{
-        if(err){
+    database.query(sql1,[id],
+    (error1, result1)=>{
+        if(error1){
             console.log(err);
+            
         }
-        
-        database.query(
-            sql,[hash,id],
-           
-            (err,result)=>{
-                if(err){
-                    console.log(err);
-                    res.send(false);
-                }
-                else{
-                    console.log(result)
-                    res.send(true);
-    
-                }
-               
-            }
-    
-        );
+        else if(result1.length >0){
+            bcrypt.compare(OldPassword, result1[0].Password,(error11, response11)=>{
+                if(response11){
+                    bcrypt.hash(Password,saltRounds, (err, hash)=>{
 
-    }) 
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            database.query(sql,[hash,id],
+                                (error3, result3)=>{
+                                    if(error3)
+                                    {
+                                        console.log(error3)
+                                    }
+                                    else{
+                                        console.log(result3)
+                                    }
+                                })
+                        }
+
+                    })
+                }
+            });
+        }
+    });
 });
+
 
 
 
