@@ -248,7 +248,7 @@ app.get('/getquestions',(req,res)=>{
 //GET method to get all the alerts (invites) for a user
 app.get('/getalerts',(req,res)=>{
     const userId = req.query.userId;
-        
+
     let sql = `SELECT * FROM invites WHERE userId = ?`;
 
     database.query(sql, [userId], 
@@ -346,6 +346,45 @@ app.get('/groups',(req,res)=>{
         }
 
     );
+})
+
+// POST method to remove a user from a group
+app.post('/removeuser', (req,res)=>{
+
+    const GId = req.body.GId;
+    const email = req.body.Email;
+    
+    let sql1 = `SELECT id FROM users WHERE EMAIL = ?`;
+    
+    let sql2 = `DELETE FROM groupmembers WHERE GId = ? AND id = ?`;
+
+
+    database.query(sql1,[email],
+        (err, result)=>{
+            if(err){
+                console.log(error);
+            }
+            else{
+                console.log(result)
+                if(result.length == 1)
+                {
+                    database.query(sql2, [GId, result[0].id],
+                        (err2,result2)=>{
+                            if(err2){
+                                console.log(err2)
+                            }
+                            else{
+                                console.log(result2);
+                                res.send({message:"User removed sucessfully"})
+                            }
+                        })
+                   
+                }
+                else{
+                    console.log("User does not exist.")
+                }
+            }
+        });
 })
 
 // post method to store the request made by group to user to join the group
