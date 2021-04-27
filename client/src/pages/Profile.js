@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-
+import '../css/profile.css';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,16 +74,16 @@ function Profile() {
 
   const classes = useStyles();
   return (
-    <div>
-      This is profile page
+    <div className='profile'>
       <div>Your Email: {JSON.parse(localStorage.getItem("user")).Email}</div>
       <div>
-        change password:
+        <br></br>
+        Change Password:
         <form className={classes.root} noValidate autoComplete="off">
           <div>
             <TextField
               id="standard-password-input"
-              label="current password"
+              label="Current Password"
               type="password"
               
               autoComplete="current-password"
@@ -101,6 +101,7 @@ function Profile() {
               helperText={passworderror1}
               onChange={(e)=>{setpw(e.target.value)}}
             />
+            <br></br>
             <TextField
               error={err}
               id="outlined-password-input"
