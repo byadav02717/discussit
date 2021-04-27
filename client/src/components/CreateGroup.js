@@ -39,7 +39,7 @@ export default function CreateGroup() {
         
     /*
       Calling the RESTful api using post method to insert the data about the newly created group into MySQL database. 
-      API defined in the register.js of Server forlder
+      API defined in the register.js of Server folder
       It passes Group name, description and id of the user as admin/ creater's id to API in its body
     */
     axios({

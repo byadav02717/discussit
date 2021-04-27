@@ -8,6 +8,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
+/*Functional component InviteUser is pop-up dialog box to invite user into the group.
+It requires email of the user to invite.
+The dialog box used is imported from material-ui
+
+*/
 export default function InviteUser() {
   const [open, setOpen] = React.useState(false);
   const [emailsToInvite, setEmails] = useState('');
@@ -16,11 +22,15 @@ export default function InviteUser() {
   var inviteId = JSON.parse(localStorage.getItem('user')).id;
   var inviterEmail = JSON.parse(localStorage.getItem('user')).Email;
   var groupName = localStorage.getItem('groupName');
-
+  /*
+    handleClickOpen is use to change state variable open to open the dialog box
+  */
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  /*
+    handleClose is use to change state variable open to close the dialog box
+  */
   const handleClose = () => {
     setOpen(false);
   };
@@ -28,6 +38,12 @@ export default function InviteUser() {
   const inviteUsers=()=>{   
     var emailList = emailsToInvite.replace(/\s+/g, '').split(',');
 
+
+    /*
+      Calling the RESTful api using post method to insert the data about the requests into MySQL database. 
+      API defined in the register.js of Server folder
+      It passes group id, Email of the person who invites, id, group name and inviter email to API in its body
+    */
     for(var i=0; i<emailList.length; i++)
     {
       axios({

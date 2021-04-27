@@ -8,6 +8,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 
+
+
+/*Functional component CreateQuestion is pop-up dialog box to create a new question.
+It requires Topic name and Question description text field to create the question.
+The dialog box used is imported from material-ui
+
+*/
 export default function CreateQuestion() {
   var userId = JSON.parse(localStorage.getItem('user')).id;
    
@@ -15,15 +22,25 @@ export default function CreateQuestion() {
   const [Topic, setTopic] = useState('');
   const [Question, setQuestion] = useState('');
 
+  /*
+    handleClickOpen is use to change state variable open to open the dialog box
+  */
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  /*
+    handleClose is use to change state variable open to close the dialog box
+  */
   const handleClose = () => {
     setOpen(false);
   };
 
-
+/*
+      Calling the RESTful api using post method to insert the data about the newly created question into MySQL database. 
+      API defined in the register.js of Server folder
+      It passes id of creator, group id, topic and question to API in its body
+    */
   const handlePost=()=>{
     axios({
         method: 'post',
