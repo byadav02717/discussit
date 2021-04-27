@@ -47,7 +47,7 @@ function Profile() {
     }
 
     useEffect(() => {
-      if(pw.length<8 || pw.length> 15)
+      if((pw.length<8 || pw.length> 15) && pw.length>0)
       {
         setpassworderror1("Password length should be 8 to 15 characters");
         seterr1(true);

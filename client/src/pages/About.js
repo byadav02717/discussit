@@ -11,7 +11,7 @@ export default function About() {
             </div>
             <div className="row">
                 <div className="statement">
-                    <h4>DisscussIt is a new, independent classroom tool designed to streamline communication between teachers and students.</h4>
+                    <h4>DiscussIt is a new, independent classroom tool designed to streamline communication between teachers and students.</h4>
                 </div>
             </div>
             <div className="row">

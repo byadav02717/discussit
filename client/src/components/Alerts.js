@@ -101,7 +101,7 @@ export default function Alerts() {
           alignItems="flex-start"
       >   
           {alerts.map(elem => (
-              <Grid item xs={12} sm={6} md={2} key={alerts.indexOf(elem)}>
+              <Grid item xs={12} sm={6} md={3} key={alerts.indexOf(elem)}>
                   <Card style={cardStyle}>
                       <CardHeader
                           subheader={`You were invited to ${elem.GName} by ${elem.InviterEmail}`}
