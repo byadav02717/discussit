@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import "../Form.css"
-
+// component profile is used to shown the user's information and an option to change their password.
 import Profile from './Profile';
 import Button from '@material-ui/core/Button';
 
@@ -11,24 +11,29 @@ import Button from '@material-ui/core/Button';
 
 function Login(){
   let history = useHistory();
-  const [emailReg, setemailReg] = useState('');
-  const [logIn, setlogIn] = useState(false);
-  const [passwordReg, setpasswordReg] = useState('');
-  const [LoginStatus, setLoginStatus] = useState('');
+  const [emailReg, setemailReg] = useState('');// state variable to store the email in login form
+  const [logIn, setlogIn] = useState(false); //state variable to store the login status
+  const [passwordReg, setpasswordReg] = useState('');// state variable to store the password in the login form
+  const [LoginStatus, setLoginStatus] = useState('');// state variable to store login status
 
 
   axios.defaults.withCredentials = true;
 
+  //function to logout the user 
   const logout=()=>{
     localStorage.clear();
     setlogIn(false);
 
   }
   
-
+  /*
+    Calling the RESTful api using post method to check if the user exists with particular email and password.
+    API defined in the register.js file of server/routes
+    It passes email and password in its body.
+  */
   const handleSubmit = event => {
     event.preventDefault();
-    //alert('You have submitted the form.')
+    
     axios({
         method: 'post',
         url: 'http://localhost:3005/login',
@@ -40,15 +45,18 @@ function Login(){
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
-          //setToken(response.data.id);
+        
           localStorage.setItem('user',JSON.stringify(response.data));
           history.push('/dashboard');
-          //setLoginStatus(response.data[0].Email);
+          
         }
        
       });
  
   }
+
+  //useEffect is used to change the value of state variable logIn.
+  
   React.useEffect(()=>{
     const loggedIn = localStorage.getItem('user')
     console.log(1);
@@ -58,7 +66,8 @@ function Login(){
     }
 
   });
-
+// State variable logIn is used for conditional renedering. if user is not logged in, 
+// login form is shown otherwise profile information is shown
   if(logIn){
     return(
       <div>

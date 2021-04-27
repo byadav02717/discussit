@@ -14,14 +14,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+/*
+  functional componet is made for the user to have option to change their password.
+*/
 function Profile() {
-    const [pw, setpw] = useState("")
-    const [cpw, setcpw] = useState("")
-    const [passworderror1, setpassworderror1] = useState("");
-    const [err1, seterr1] = useState(false);
-    const [passworderror, setpassworderror] = useState("");
-    const [err, seterr] = useState(false);
+    const [pw, setpw] = useState("")//state variable to store password.
+    const [opw, setopw] = useState("")//state variable to store old password.
+    const [cpw, setcpw] = useState("")//state variable to store confirm password.
+    const [passworderror1, setpassworderror1] = useState("");// state variable to store error message
+    const [err1, seterr1] = useState(false);// state variable to track the status of error
+    const [passworderror, setpassworderror] = useState("");// state variable to store error message
+    const [err, seterr] = useState(false);// state variable to track the status of error
     
+    /*
+      Calling the RESTful api using post method to update the password of the userin MySQL database. 
+      API defined in the register.js of server/routes/
+      It passes id, Password, id, OldPassword to API in its body
+    */
+
     const changePassword=()=>{
       var userid = JSON.parse(localStorage.getItem('user')).id;
       axios({
@@ -29,7 +40,8 @@ function Profile() {
         url: 'http://localhost:3005/changepw',
         data: {
             id: userid,
-            Password: pw
+            Password: pw,
+            OldPassword: opw
         }
       }).then((response) => {
         console.log(response);
@@ -88,6 +100,7 @@ function Profile() {
               
               autoComplete="current-password"
               variant="outlined"
+              onChange={(e)=>{setopw(e.target.value)}}
             />
           </div>
           <div>
