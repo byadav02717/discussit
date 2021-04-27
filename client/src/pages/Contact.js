@@ -1,6 +1,11 @@
 import React from 'react'
 import '../css/About.css';
 
+/*
+functional componenet Contact is the layout for contact page. It uses About.css file for styling the page.
+It has the list of contact email of developers and maintenance team of the website.
+*/
+
 export default function Contact() {
     return (
         <div className="container">

@@ -38,6 +38,10 @@ export default function Dashboard () {
     var grouplist = [];
     //const groupL = [];
 
+    /*useEffect is used to check the login status of the user. 
+    
+
+    */
     React.useEffect(()=>{
         const loggedIn = localStorage.getItem('user')
         console.log(1);
@@ -84,7 +88,9 @@ export default function Dashboard () {
    },[logIn]);
 
   
-    
+/*If the user is not logged in, it simply instruct the user to login to access the page
+Conditional rendering is used to show the content of page based on login status.
+*/
    if(!logIn){
     return(
       <div>
@@ -94,7 +100,11 @@ export default function Dashboard () {
       </div>
     )
   }
-
+/*If the user is logged in, it the option to create group and a list of group, the user is member of.
+The component Alert is used to show the pending request for joining groups.
+The Component CreateGroup is used to create a new group.
+Conditional rendering is used to show the content of page based on login status.
+*/
 else{
     return (
         <div className="dashboard" >

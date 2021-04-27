@@ -8,24 +8,40 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+/*Functional component CreateGroup is pop-up dialog box create a new group.
+It requires Group name and group description text field to create the group.
+The dialog box used is imported from material-ui
+
+*/
+
 export default function CreateGroup() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false); // state variable to tractk and control the open and close state of dialog box.
   let local_data = localStorage.getItem('user');
     local_data = JSON.parse(local_data);
-    const [GName, setGName] = useState('');
-    const [Gdesc, setGdesc] = useState('');
-    //const [GroupCreation, setGroupCreation] = useState('');
+    const [GName, setGName] = useState('');//state to store the group name
+    const [Gdesc, setGdesc] = useState('');//state to store the group description
+    
 
+  /*
+    handleClickOpen is use to change state variable open to open the dialog box
+  */
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  /*
+    handleClose is use to change state variable open to close the dialog box
+  */
   const handleClose = () => {
     setOpen(false);
   };
   const createGroup=()=>{
         
-    
+    /*
+      Calling the RESTful api using post method to insert the data about the newly created group into MySQL database. 
+      API defined in the register.js of Server forlder
+      It passes Group name, description and id of the user as admin/ creater's id to API in its body
+    */
     axios({
         method: 'post',
         url: 'http://localhost:3005/creategroup',
@@ -36,7 +52,7 @@ export default function CreateGroup() {
         }
       }).then((response) => {
         if (response.data.message) {
-          //setGroupCreation(response.data.message);
+          console.log(response.data.message);
         }
        
       });
