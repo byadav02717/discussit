@@ -12,6 +12,12 @@ import {
 import CreateQuestion from '../components/CreateQuestion'
 import AdminModule from '../components/AdminModule'
 
+function sqlDateFix(sqlDate){
+    sqlDate = sqlDate.replace('T', ' ');
+    sqlDate = sqlDate.substring(0, sqlDate.indexOf('.'));
+    return sqlDate;
+}
+
 export default function GroupPage() {
     var groupName = localStorage.getItem('groupName');
 
@@ -32,7 +38,8 @@ export default function GroupPage() {
                 var answer = [];
                 var questionID = questionData[index].QId;
                 var questionPoster = questionData[index].id;
-                var questionText = questionData[index].Question; 
+                var questionText = questionData[index].Question;
+                var questionPostedAt = questionData[index].dateCreated;  
 
                 console.log(questionID)
 
@@ -44,7 +51,7 @@ export default function GroupPage() {
                     }
                     }).then((response) => {
                         
-                        answer.push({answerId: -1, QId: questionID, id: questionPoster, Answer: questionText})
+                        answer.push({answerId: -1, QId: questionID, id: questionPoster, Answer: questionText, dateCreated: questionPostedAt})
 
                         for (var i = 0; i<response.data.length; i++)
                         {
@@ -72,7 +79,8 @@ export default function GroupPage() {
         return (
           <ListItem style={style} key={index}>
             <ListItemText primary={`${currAnswers[index].Answer}`} />
-            <ListItemText className='li-secondary' secondary={`Posted by: ${userData.find(x => x.id === currAnswers[index].id).email}`} />
+            <ListItemText className='li-secondary' primary={`Posted by: ${userData.find(x => x.id === currAnswers[index].id).email}`} 
+                secondary={ `Posted at: ${ sqlDateFix(currAnswers[index].dateCreated) } `} />
           </ListItem>
         );
     }

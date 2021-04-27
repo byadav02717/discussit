@@ -59,7 +59,7 @@ export default function InviteUser() {
             autoFocus
             margin="dense"
             id="emails"
-            label="Users to invite"
+            label="Users to remove"
             type="text"
             fullWidth
             onChange={(e)=>{

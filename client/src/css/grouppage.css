@@ -23,3 +23,8 @@
 .li-secondary {
     text-align: right;
 }
+
+.li-date {
+    text-align: right;
+    position: relative;
+}

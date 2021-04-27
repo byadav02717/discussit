@@ -149,6 +149,35 @@ app.post('/login',async(req,res)=>{
     
 });
 
+//POST method to add a new FAQ to db.
+app.post('/postfaq', (req,res)=>{
+    const id = req.body.id;
+    const GId = req.body.GId;
+    const topic = req.body.topic;
+    const question = req.body.question;
+    
+    let sql = `INSERT INTO faq(id, GId, Topic, Question) VALUES (?,?,?,?)`;
+   
+        database.query(
+            sql,[id, GId, topic, question],
+           
+            (err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.send({message:"FAQ Not posted"});
+                }
+                else{
+                    console.log(result)
+                    res.send({message:"FAQ Posted"});
+    
+                }
+               
+            }
+    
+        );
+});
+
+
 //POST method to add a question in a group into the database.
 app.post('/question', (req,res)=>{
     const id = req.body.id;
@@ -175,8 +204,6 @@ app.post('/question', (req,res)=>{
             }
     
         );
-
-    
 });
 
 //POST method to add an answer to a question in the database.
@@ -226,7 +253,22 @@ app.get('/getanswers',(req,res)=>{
         })
 })
 
-
+//GET method to get all the FAQ in a group
+app.get('/getfaq',(req,res)=>{
+    const GId = req.query.GId;
+    console.log(GId);
+    let sql = `SELECT * FROM faq WHERE GId = ?`;
+    database.query(sql, [GId], 
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        });
+})
 
 //GET method to get all the questions in a group
 app.get('/getquestions',(req,res)=>{

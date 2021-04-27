@@ -3,6 +3,8 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import InviteUser from './InviteUser';
 import RemoveUser from './RemoveUser';
+import FAQModule from './FAQModule';
+import PostFAQ from './PostFAQ';
 
 export default function AdminModule() {
   const [authLevel, setAuthLevel] = useState([]);
@@ -35,11 +37,18 @@ export default function AdminModule() {
         <Button className='remove-button'>
           <RemoveUser />
         </Button>
+
+        <Button className='faq-button'>
+          <PostFAQ />
+        </Button>
+
+        <br></br>
+        <FAQModule></FAQModule>
       </div>
     )
   }
   
   return (
-    <p></p>
+    <FAQModule></FAQModule>
   )
 }
