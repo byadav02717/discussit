@@ -8,8 +8,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
-export default function InviteUser() {
+/*Functional component RemoveUser is pop-up dialog box to remove a user from the group.
+It requires email of the user to remove.
+The dialog box used is imported from material-ui
+*/
+export default function RemoveUser() {
   const [open, setOpen] = React.useState(false);
   const [emailsToRemove, setEmails] = useState('');
 
@@ -23,6 +26,7 @@ export default function InviteUser() {
     setOpen(false);
   };
 
+  // Call to API to remove the provided users from current group
   const removeUsers=()=>{   
     var emailList = emailsToRemove.replace(/\s+/g, '').split(',');
 

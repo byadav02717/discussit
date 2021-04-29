@@ -13,9 +13,7 @@ function Register() {
   const [passwordError, setpasswordError] = useState('');
   const [err1, seterr1] = useState('');
 
-
-
-  
+  // handle submitting info when registering an account
   const handleSubmit = event =>{ 
       event.preventDefault();
       axios({
@@ -39,6 +37,7 @@ function Register() {
    
   }
 
+  // error checking email and pw, and setting errors for rendering
   useEffect(() => {
     var regexEmail = /@+.+(com|co|org|fr|net|de|ru|it|es|nl|ca|be|ch|edu)/;
     var resultEmail = regexEmail.test(emailReg);
@@ -66,6 +65,7 @@ function Register() {
 
   }, [emailReg, passwordReg])
 
+  // display registration form
   return (
       <div className='form-content-centre'>
         <form className='form' onSubmit={handleSubmit}>

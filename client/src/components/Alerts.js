@@ -9,7 +9,7 @@ import {
     Button
 } from '@material-ui/core/'
 
-
+// styling information for alert cards
 const useStyles = makeStyles(theme => ({
   root: {
       flexGrow: 1,
@@ -21,12 +21,15 @@ const cardStyle = {
   width: '20vw',
   height: '8vw',
 }
+// end styling
 
+// Alerts module, for pending invites a user may have
 export default function Alerts() {
   var userId = JSON.parse(localStorage.getItem('user')).id;
   const [alerts, setAlerts] = useState('');
   const classes = useStyles();
 
+  // call api for accepting an invite
   function acceptInvite(groupID, inviteId) 
   {
     // accept GId, userId
@@ -46,6 +49,7 @@ export default function Alerts() {
     window.location.reload();
   }
 
+  // call api for declining an invite
   function declineInvite(groupID, inviteId) 
   {
     // decline GId, userId
@@ -85,6 +89,7 @@ export default function Alerts() {
     });   
   }, [false]);
 
+  // if user has pending alerts, show them in a grid with accept/deny buttons
   if (alerts.length > 0)
   {
     var alertCount = alerts.length;
@@ -128,6 +133,8 @@ export default function Alerts() {
     )
     
   }
+
+  // otherwise, show that they have no alerts pending
   else return (
     <div>
       You do not have any pending alerts.

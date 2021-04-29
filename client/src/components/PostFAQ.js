@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 
+// Dialogue and form for posting a FAQ
 export default function PostFAQ() {
   var userId = JSON.parse(localStorage.getItem('user')).id;
    
@@ -23,7 +24,7 @@ export default function PostFAQ() {
     setOpen(false);
   };
 
-
+  // Calling to API to post a new FAQ
   const handlePost=()=>{
     axios({
         method: 'post',
@@ -47,6 +48,7 @@ export default function PostFAQ() {
       }, 500);
   }
 
+  // Rendering post FAQ button, form and dialogue
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>

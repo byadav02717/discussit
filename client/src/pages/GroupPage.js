@@ -12,12 +12,14 @@ import {
 import CreateQuestion from '../components/CreateQuestion'
 import AdminModule from '../components/AdminModule'
 
+// simple function to make the sql date string look nicer
 function sqlDateFix(sqlDate){
     sqlDate = sqlDate.replace('T', ' ');
     sqlDate = sqlDate.substring(0, sqlDate.indexOf('.'));
     return sqlDate;
 }
 
+// Main component for GroupPage, shows current group name, admin/faq module, and Q&A section
 export default function GroupPage() {
     var groupName = localStorage.getItem('groupName');
 
@@ -28,6 +30,7 @@ export default function GroupPage() {
     const [currAnswers, setCurrAnswers] = useState([]);
     const [answerText, setAnswer] = useState('');
 
+    // renders all current questions in the group
     function renderQuestions(props) {
         const { index, style } = props;
 
@@ -43,6 +46,7 @@ export default function GroupPage() {
 
                 console.log(questionID)
 
+                // API call to get all questions in current group
                 axios({
                     method: 'get',
                     url: 'http://localhost:3005/getanswers',
@@ -72,6 +76,7 @@ export default function GroupPage() {
         style: PropTypes.object.isRequired,
     };
     
+    // renders all answers in currently clicked question
     function renderAnswers(props) {
         const { index, style } = props;
         
@@ -130,6 +135,7 @@ export default function GroupPage() {
            
        }, [false]);
 
+       // handles posting an answer to specific question
        const handlePostAnswer=()=>{
         var userId = JSON.parse(localStorage.getItem('user')).id;
         axios({
@@ -152,6 +158,7 @@ export default function GroupPage() {
           }, 500);
       }
 
+    // rendering for question and answer section
     return (
         <div>
             <div className="group-body">

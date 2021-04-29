@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/About.css';
 /*
-functional componenet About is the layout for About page.
+functional component About is the layout for About page.
 It is gridview of images and description related to purpose of the website
 
 */

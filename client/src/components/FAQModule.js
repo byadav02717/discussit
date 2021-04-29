@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import '../css/grouppage.css';
 
+// useStyles for FAQ accordion and questions
 const useStylesList = makeStyles((theme) => ({
   root: {
     width: 300,
@@ -29,23 +30,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
+// end usestlyes
 
-function handleDeleteFAQ(faqId) {
-  axios({
-    method: 'post',
-    url: 'http://localhost:3005/deletefaq',
-    data: {
-        faqId: faqId
-    }
-    }).then((response) => {
-    
-  });
-
-  setTimeout(function () {
-    window.location.reload();
-  }, 500);
-}
-
+// FAQ module for posting, deleting, and viewing FAQ questions
 export default function FAQModule() {
   const classes = useStyles();
   const classesList = useStylesList();
@@ -53,6 +40,7 @@ export default function FAQModule() {
   const [authLevel, setAuthLevel] = useState([]);
   const [faqQuestions, setFaqQuestions] = useState([]);
   
+  // get user auth (for showing delete button)
   useEffect(() => {
     var groupID = localStorage.getItem('groupID');
     var userId = JSON.parse(localStorage.getItem('user')).id;
@@ -69,6 +57,7 @@ export default function FAQModule() {
        
   }, [false]);
 
+  // getting all FAQ questions in the current group
   useEffect(() => {
     var faqs = [];
     var groupID = localStorage.getItem('groupID');
@@ -91,6 +80,8 @@ export default function FAQModule() {
        
   }, [false]);
 
+
+  // if auth is greater than user (0) level auth, show delete buttons
   if(authLevel > 0)
   {
     return (
@@ -112,6 +103,7 @@ export default function FAQModule() {
             <ListItemText primary={`${elem.Question}`} />
 
             <Button color="primary" onClick={() => {
+              // delete FAQ button is pressed, so we delete the clicked question
               axios({
                 method: 'post',
                 url: 'http://localhost:3005/deletefaq',
@@ -138,6 +130,7 @@ export default function FAQModule() {
     )
   }
   
+  // otherwise display user level FAQ module
   return (
     <div className={classes.root}>
       <Accordion>

@@ -12,7 +12,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 /*Functional component InviteUser is pop-up dialog box to invite user into the group.
 It requires email of the user to invite.
 The dialog box used is imported from material-ui
-
 */
 export default function InviteUser() {
   const [open, setOpen] = React.useState(false);

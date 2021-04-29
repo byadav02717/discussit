@@ -63,6 +63,7 @@ export default function CreateGroup() {
       }, 500);
     }
 
+  // Rendering for the create group popup diaogue
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>

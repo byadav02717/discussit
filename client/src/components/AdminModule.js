@@ -6,9 +6,11 @@ import RemoveUser from './RemoveUser';
 import FAQModule from './FAQModule';
 import PostFAQ from './PostFAQ';
 
+// Admin module (for auth in a given group)
 export default function AdminModule() {
   const [authLevel, setAuthLevel] = useState([]);
   
+  // get auth for user in the current group
   useEffect(() => {
     var groupID = localStorage.getItem('groupID');
     var userId = JSON.parse(localStorage.getItem('user')).id;
@@ -25,6 +27,7 @@ export default function AdminModule() {
        
   }, [false]);
 
+  // if user has greater than user (0) level auth, display admin panel + faq module
   if(authLevel > 0)
   {
     return (
@@ -48,6 +51,7 @@ export default function AdminModule() {
     )
   }
   
+  // otherwise, we'll just show them the FAQ module
   return (
     <FAQModule></FAQModule>
   )
